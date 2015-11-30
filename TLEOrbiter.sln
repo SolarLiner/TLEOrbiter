@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLEOrbiter", "TLEOrbiter.csproj", "{49B015E8-B95A-4713-9F48-02592EEBF1DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOSP", "..\OrbiterSpaceProgram\AOSP\AOSP.csproj", "{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6692F22E-CD41-48B4-A8A3-2CE00E87C905}"
+	ProjectSection(SolutionItems) = preProject
+		TLEOrbiter.ico = TLEOrbiter.ico
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49B015E8-B95A-4713-9F48-02592EEBF1DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49B015E8-B95A-4713-9F48-02592EEBF1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49B015E8-B95A-4713-9F48-02592EEBF1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49B015E8-B95A-4713-9F48-02592EEBF1DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
