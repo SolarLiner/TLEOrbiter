@@ -158,7 +158,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OrbiterSpaceProgram\AOSP\AOSP.csproj">
+    <ProjectReference Include="AOSP\AOSP.csproj">
       <Project>{3115eceb-0b6b-401a-9cd1-d525dacf4ade}</Project>
       <Name>AOSP</Name>
     </ProjectReference>

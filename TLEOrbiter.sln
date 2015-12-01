@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLEOrbiter", "TLEOrbiter.csproj", "{49B015E8-B95A-4713-9F48-02592EEBF1DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOSP", "..\OrbiterSpaceProgram\AOSP\AOSP.csproj", "{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOSP", "AOSP\AOSP.csproj", "{3115ECEB-0B6B-401A-9CD1-D525DACF4ADE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6692F22E-CD41-48B4-A8A3-2CE00E87C905}"
 	ProjectSection(SolutionItems) = preProject
