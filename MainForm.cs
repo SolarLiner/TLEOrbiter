@@ -33,8 +33,8 @@ namespace TLEOrbiter
             SP.ScenarioName = ScnName;
             SP.Description = SCN.Description;
 
-            //if (SP.ShowDialog() != DialogResult.OK) return;
-            SP.ShowDialog();
+            if (SP.ShowDialog() != DialogResult.OK) return;
+            //SP.ShowDialog();
             SCN.MJD = SP.MJD;
             SCN.Description = SP.Description;
             ScnName = SP.ScenarioName;
