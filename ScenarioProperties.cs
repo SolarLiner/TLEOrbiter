@@ -48,7 +48,7 @@ namespace TLEOrbiter
             if (DC.ShowDialog() != DialogResult.OK) return;
             MJD = DC.PickedMJD;
             dt = DC.PickedTime;
-            // TODO: Why is this closing here?
+            DialogResult = DialogResult.None;
         }
 
         private void TB_ScnName_TextChanged(object sender, EventArgs e)
