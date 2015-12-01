@@ -45,9 +45,11 @@ namespace TLEOrbiter
             DateChange DC = new DateChange();
             DC.PickedTime = dt;
 
-            if (DC.ShowDialog() != DialogResult.OK) return;
-            MJD = DC.PickedMJD;
-            dt = DC.PickedTime;
+            if (DC.ShowDialog() == DialogResult.OK)
+            {
+                MJD = DC.PickedMJD;
+                dt = DC.PickedTime;
+            }
             DialogResult = DialogResult.None;
         }
 
@@ -62,13 +64,11 @@ namespace TLEOrbiter
         private void BT_Cancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-            this.Close();
         }
 
         private void BT_OK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)

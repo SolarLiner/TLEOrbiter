@@ -81,13 +81,11 @@ namespace TLEOrbiter
         private void BT_OK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         private void BT_Cancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-            this.Close();
         }
     }
 }
