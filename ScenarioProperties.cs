@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TLEOrbiter
@@ -29,7 +22,7 @@ namespace TLEOrbiter
             else dt = AOSP.Misc.GetTime(MJD);
 
             TB_ScnName.Text = ScenarioName;
-            richTextBox1.Text = Description;
+            RTB_ScnDesc.Text = Description;
         }
 
         private void CB_UseSysTime_CheckedChanged(object sender, EventArgs e)
@@ -71,9 +64,9 @@ namespace TLEOrbiter
             DialogResult = DialogResult.OK;
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void RTB_ScnDesc_TextChanged(object sender, EventArgs e)
         {
-            Description = richTextBox1.Text;
+            Description = RTB_ScnDesc.Text;
         }
     }
 }

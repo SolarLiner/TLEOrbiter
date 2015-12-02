@@ -85,10 +85,11 @@ namespace AOSP
         {
             get
             {
-                if (_stat == "Landed")
+                /*if (_stat == "Landed")
                     return _base;
                 else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getBase"));
+                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getBase"));*/
+                return _base;
             }
         }
 
@@ -118,10 +119,11 @@ namespace AOSP
         {
             get
             {
-                if (_stat == "Landed")
+                /*if (_stat == "Landed")
                     return _heading;
                 else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getHeading"));
+                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getHeading"));*/
+                return _heading;
             }
             set
             {
@@ -139,10 +141,11 @@ namespace AOSP
         {
             get
             {
-                if (_stat == "Landed")
+                /*if (_stat == "Landed")
                     return _pos;
                 else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getPOS"));
+                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getPOS"));*/
+                return _pos;
             }
         }
 
@@ -164,84 +167,23 @@ namespace AOSP
         /// </summary>
         public Vector3 RPos
         {
-            get
-            {
-                if (_stat == "Orbiting")
-                    return _rpos;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current status: Orbiting", new Exception("Vessel: " + _name + " | event getRPos"));
-            }
-            set
-            {
-                if (_stat == "Orbiting")
-                    _rpos = value;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current status: Orbiting", new Exception("Vessel: " + _name + " | event getRPos"));
-            }
+            get; set;
         }
 
         /// <summary>
         /// Relative velocity to the reference, in case of status Orbiting. Throws a WrongVesselStatus if landed.
         /// </summary>
-        public Vector3 RVel
-        {
-            get
-            {
-                if (_stat == "Orbiting")
-                    return _rvel;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getRVel"));
-            }
-            set
-            {
-                if (_stat == "Orbiting")
-                    _rvel = value;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setRVel"));
-            }
-        }
+        public Vector3 RVel { get; set; }
 
         /// <summary>
         /// Angular position, in case of status Orbiting. Throws a WrongVesselStatus if orbiting.
         /// </summary>
-        public Vector3 ARot
-        {
-            get
-            {
-                if (_stat == "Orbiting")
-                    return _arot;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getARot"));
-            }
-            set
-            {
-                if (_stat == "Orbiting")
-                    _arot = value;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setARot"));
-            }
-        }
+        public Vector3 ARot { get; set; }
 
         /// <summary>
         /// Angular velocity, incase of status Orbiting.  Throws a WrongVesselStatusError if orbiting.
         /// </summary>
-        public Vector3 VRot
-        {
-            get
-            {
-                if (_stat == "Orbiting")
-                    return _vrot;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getVRot"));
-            }
-            set
-            {
-                if (_stat == "Orbiting")
-                    _vrot = value;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setVRot"));
-            }
-        }
+        public Vector3 VRot { get; set; }
 
         /// <summary>
         /// Returns true if orbit is defined with vector, else false (even if not defined at all).

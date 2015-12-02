@@ -6,6 +6,7 @@ namespace AOSP
     /// <summary>
     /// Trown when vessel status is incorrect to do the operation.
     /// </summary>
+    [Serializable]
     public class WrongVesselStatusError : System.Exception
     {
         public WrongVesselStatusError() { }

@@ -33,7 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.TB_ScnName = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.RTB_ScnDesc = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BT_ChangeDate = new System.Windows.Forms.Button();
             this.CB_UseSysTime = new System.Windows.Forms.CheckBox();
@@ -63,9 +63,9 @@
             // 
             // richTextBox1
             // 
-            resources.ApplyResources(this.richTextBox1, "richTextBox1");
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            resources.ApplyResources(this.RTB_ScnDesc, "richTextBox1");
+            this.RTB_ScnDesc.Name = "richTextBox1";
+            this.RTB_ScnDesc.TextChanged += new System.EventHandler(this.RTB_ScnDesc_TextChanged);
             // 
             // groupBox1
             // 
@@ -73,7 +73,7 @@
             this.groupBox1.Controls.Add(this.CB_UseSysTime);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.richTextBox1);
+            this.groupBox1.Controls.Add(this.RTB_ScnDesc);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.TB_ScnName);
             resources.ApplyResources(this.groupBox1, "groupBox1");
@@ -145,7 +145,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TB_ScnName;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox RTB_ScnDesc;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button BT_ChangeDate;
         private System.Windows.Forms.CheckBox CB_UseSysTime;
