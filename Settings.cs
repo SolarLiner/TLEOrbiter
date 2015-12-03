@@ -77,6 +77,7 @@ namespace TLEOrbiter
             CultureInfo _lang = Application.CurrentCulture;
             try
             {
+                Log.Write("Settings.Load()");
                 foreach (string line in File.ReadAllLines(_config))
                 {
                     string[] content = line.Split('=');
@@ -85,9 +86,11 @@ namespace TLEOrbiter
                     switch (content[0].Trim())
                     {
                         case "OrbiterPath":
+                            Log.Write("Settings: Found OrbiterPath: " + content[1]);
                             OrbiterPath = content[1].Trim();
                             break;
                         case "Language":
+                            Log.Write("Settings: Found language: " + content[1]);
                             _lang = new CultureInfo(content[1].Trim());
                             break;
                     }
@@ -101,6 +104,7 @@ namespace TLEOrbiter
         public static void Save()
         {
             StringBuilder sb = new StringBuilder();
+            Log.Write("Settings.Save()");
 
             sb.AppendLine(string.Format("; TLE Scenario Generator - v {0}", Application.ProductVersion));
             sb.AppendLine();

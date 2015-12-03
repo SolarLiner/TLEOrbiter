@@ -11,6 +11,7 @@ namespace TLEOrbiter
 
         public MainForm()
         {
+            Log.Write("new MainForm()");
             InitializeComponent();
             SCN = new OrbScenario();
             SCN.Camera = new OrbCamera(OrbCamera.CameraMode.GlassCockpit);

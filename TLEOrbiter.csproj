@@ -63,6 +63,7 @@
     <Compile Include="ImportTLE.Designer.cs">
       <DependentUpon>ImportTLE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Log.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +162,14 @@
     <ProjectReference Include="AOSP\AOSP.csproj">
       <Project>{3115eceb-0b6b-401a-9cd1-d525dacf4ade}</Project>
       <Name>AOSP</Name>
+    </ProjectReference>
+    <ProjectReference Include="OrbitTools\Core\Core.csproj">
+      <Project>{99510ed5-99e0-405d-bcac-9159a7426d61}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="OrbitTools\Orbit\Orbit.csproj">
+      <Project>{baa5fe10-3e3a-4d5d-ab3d-4b50d6ac0321}</Project>
+      <Name>Orbit</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
