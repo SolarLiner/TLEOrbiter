@@ -12,10 +12,10 @@ namespace TLEOrbiter
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(" ***************************");
-            sb.AppendLine(" *  TLE Scenario Generator *");
-            sb.AppendLine(" *   Log file: " + DateTime.Now.ToShortDateString() + "  *");
-            sb.AppendLine(" ***************************");
+            sb.AppendLine(" **");
+            sb.AppendLine(" *  TLE Scenario Generator");
+            sb.AppendLine(" *   Log file: " + DateTime.Now.ToShortDateString());
+            sb.AppendLine(" **");
             sb.AppendLine();
 
             File.WriteAllText(FileName, sb.ToString());
@@ -24,7 +24,16 @@ namespace TLEOrbiter
         internal static void Write(string v)
         {
             string Date = DateTime.Now.ToLongTimeString();
-            File.AppendAllText(FileName, string.Format("[{0}] {1}\n", Date, v));
+            int pad = Date.Length + 3;
+            string[] contents = v.Split('\n');
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < contents.Length; i++)
+            {
+                if (i == 0) sb.AppendLine(string.Format("[{0}] {1}", Date, contents[0]));
+                else sb.AppendLine("".PadLeft(pad) + contents[i].Replace("\n", ""));
+            }
+
+            File.AppendAllText(FileName, sb.ToString());
         }
         internal static void Write(Exception e)
         {

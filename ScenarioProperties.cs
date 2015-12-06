@@ -51,7 +51,10 @@ namespace TLEOrbiter
             if (string.IsNullOrWhiteSpace(TB_ScnName.Text))
                 ER_Verifier.SetError(TB_ScnName, "Name cannot be empty.");
             else
+            {
                 ScenarioName = TB_ScnName.Text;
+                ER_Verifier.SetError(TB_ScnName, "");
+            }
         }
 
         private void BT_Cancel_Click(object sender, EventArgs e)

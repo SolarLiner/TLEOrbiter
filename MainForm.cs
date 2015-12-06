@@ -48,6 +48,8 @@ namespace TLEOrbiter
                 tle += content[i + 1] + '\n';
                 tle += content[i + 2];
 
+                Log.Write("One TLE:\n" + tle);
+
                 ListViewItem lvi = LV_Ships.Items.Add(tname);
                 OrbVessel OV = new OrbVessel("ShuttlePB", tle.Split('\n'));
                 lvi.SubItems.Add(OV.Name);
@@ -58,13 +60,15 @@ namespace TLEOrbiter
             }
         }
 
-        private void GenerateSCN()
+        private void PopulateSCN()
         {
             // Populate ships
+            Log.Write("MainForm.PopulateSCN()");
             SCN.Ships.Clear();
             foreach (ListViewItem lvi in LV_Ships.Items)
             {
                 if (!lvi.Checked) continue;
+                Log.Write("Ship: " + (lvi.Tag as OrbVessel).Name);
                 SCN.Ships.Add((OrbVessel)lvi.Tag);
             }
         }
@@ -98,7 +102,7 @@ namespace TLEOrbiter
             sfd.FileName = ScnName.Trim().Replace(' ', '_') + ".scn";
 
             if (sfd.ShowDialog() != DialogResult.OK) return;
-            GenerateSCN();
+            PopulateSCN();
             System.IO.File.WriteAllText(sfd.FileName, SCN.RenderScenario());
         }
 

@@ -17,16 +17,18 @@ namespace TLEOrbiter
             WebClient WC = new WebClient();
             try
             {
+                Log.Write("Getting URL: " + TB_TleUrl.Text);
                 TLEData = WC.DownloadString(TB_TleUrl.Text);
             }
             catch(Exception ex)
             {
+                Log.Write(ex);
                 EP_Validator.SetError(TB_TleUrl, ex.Message);
                 return;
             }
 
             DialogResult = DialogResult.OK;
-            this.Close();
+            //this.Close();
         }
 
         private void TB_TleUrl_TextChanged(object sender, EventArgs e)

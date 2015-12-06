@@ -14,6 +14,7 @@ namespace TLEOrbiter
         public SettingsForm()
         {
             InitializeComponent();
+            Log.Write("new SettingsForm()");
         }
 
         private void button1_Click(object sender, EventArgs e)
