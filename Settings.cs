@@ -28,7 +28,7 @@ namespace TLEOrbiter
 
         private void BT_OK_Click(object sender, EventArgs e)
         {
-            string CultureName = Settings.Languages.Where(k => k.Value == CB_Lang.Text).First().Key;
+            string CultureName = Settings.Languages.First(k => k.Value == CB_Lang.Text).Key;
             Settings.Lang = new CultureInfo(CultureName);
             Settings.OrbiterPath = TB_OrbPath.Text;
             Settings.Save();
@@ -56,7 +56,7 @@ namespace TLEOrbiter
         public static CultureInfo Lang { get; set; }
         public static string OrbiterPath { get; set; }
 
-        private static string _config = Path.Combine(Application.StartupPath, "Config.cfg");
+        static readonly string _config = Path.Combine(Application.StartupPath, "Config.cfg");
 
         // List of available languages, 
         public static Dictionary<string, string> Languages

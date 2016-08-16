@@ -55,6 +55,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NoradBase.cs" />
     <Compile Include="NoradSDP4.cs" />
     <Compile Include="NoradSGP4.cs" />

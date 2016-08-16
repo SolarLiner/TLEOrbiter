@@ -22,7 +22,7 @@ namespace TLEOrbiter
         }
 
         private DateTime _dt;
-        private bool _updating = false;
+        private bool _updating;
         public DateTime PickedTime
         {
             get
@@ -45,14 +45,14 @@ namespace TLEOrbiter
                 _updating = false;
             }
         }
-        public double PickedMJD { get { return AOSP.Misc.GetMJD(_dt); } }
+        public double PickedMJD => AOSP.Misc.GetMJD(_dt);
 
         private void UpdatePickedTime()
         {
             if (_updating) return;
             DateTime d = MC_Calendar.SelectionStart.Date.Add(new TimeSpan((int)NU_Hours.Value, (int)NU_Minutes.Value, (int)NU_Seconds.Value));
 
-            if (PickedTime != d) PickedTime = d;
+            PickedTime = d;
         }
 
         private void NU_ValueChanged(object sender, EventArgs e)

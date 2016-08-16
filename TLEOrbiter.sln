@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLEOrbiter", "TLEOrbiter.csproj", "{49B015E8-B95A-4713-9F48-02592EEBF1DB}"
 EndProject
@@ -15,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "OrbitTools\Core\Core.csproj", "{99510ED5-99E0-405D-BCAC-9159A7426D61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit", "OrbitTools\Orbit\Orbit.csproj", "{BAA5FE10-3E3A-4D5D-AB3D-4B50D6AC0321}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLiner.Generic", "..\SolarLiner.Generic\SolarLiner.Generic.csproj", "{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{BAA5FE10-3E3A-4D5D-AB3D-4B50D6AC0321}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAA5FE10-3E3A-4D5D-AB3D-4B50D6AC0321}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAA5FE10-3E3A-4D5D-AB3D-4B50D6AC0321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

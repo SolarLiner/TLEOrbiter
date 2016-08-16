@@ -5,7 +5,7 @@ namespace TLEOrbiter
 {
     static class Program
     {
-        static bool ShowMessageBox = false;
+        static bool ShowMessageBox;
         /// <summary>
         /// Point d'entrée principal de l'application.
         /// </summary>

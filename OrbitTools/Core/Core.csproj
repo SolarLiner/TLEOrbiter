@@ -57,6 +57,7 @@
     <Compile Include="Coord.cs" />
     <Compile Include="Eci.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Julian.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.cs" />
