@@ -47,12 +47,7 @@ namespace Zeptomoby.OrbitTools
          // the equations are truncated to linear variation in square root of a
          // and quadratic variation in mean anomaly.  Also, the m_c3 term, the
          // delta omega term, and the delta m term are dropped.
-         bool isimp = false;
-
-         if ((m_aodp * (1.0 - m_satEcc) / Globals.Ae) < (220.0 / Globals.Xkmper + Globals.Ae))
-         {
-            isimp = true;
-         }
+         bool isimp = false || (m_aodp * (1.0 - m_satEcc) / Globals.Ae) < (220.0 / Globals.Xkmper + Globals.Ae);
 
          double d2 = 0.0;
          double d3 = 0.0;

@@ -3,17 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
-namespace AOSP
+namespace TLEOrbiter.Controls
 {
-    /// <summary>
-    /// HUD flags. "None" is no HUD.
-    /// </summary>
-    public enum OrbHUD
+    interface IInputControl<T>
     {
-        Orbit,
-        Surface,
-        Docking,
-        None
+        T Value { get; set; }
+        string Name { get; set; }
     }
 }

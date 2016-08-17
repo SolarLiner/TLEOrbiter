@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Windows.Forms;
 
 namespace TLEOrbiter

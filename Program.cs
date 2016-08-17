@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Windows.Forms;
 
 namespace TLEOrbiter
@@ -21,6 +22,8 @@ namespace TLEOrbiter
 
             Settings.Load();
 
+            PluginManager.PluginManager.LoadPlugins();
+
             //Application.CurrentCulture = Settings.Lang;
             Application.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = Settings.Lang;
@@ -41,8 +44,8 @@ namespace TLEOrbiter
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
-            Log.Write(ex);
-            if (e.IsTerminating) Log.WriteError("Fatal error, terminating...");
+            Log.WriteError(ex);
+            if (e.IsTerminating) Log.Write("[ERROR] Fatal error, terminating...");
 
             if (ShowMessageBox)
             {

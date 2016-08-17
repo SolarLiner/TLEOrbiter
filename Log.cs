@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -21,32 +23,32 @@ namespace TLEOrbiter
             File.WriteAllText(FileName, sb.ToString());
         }
 
-        internal static void Write(string v)
+        internal static void Write(string[] v, int pad)
         {
             string Date = DateTime.Now.ToLongTimeString();
-            int pad = Date.Length + 3;
-            string[] contents = v.Split('\n');
+            pad += Date.Length;
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < contents.Length; i++)
+            for( int i = 0; i < v.Length; i++ )
             {
-                if (i == 0) sb.AppendLine(string.Format("[{0}] {1}", Date, contents[0]));
-                else sb.AppendLine("".PadLeft(pad) + contents[i].Replace("\n", ""));
+                if( i == 0 ) sb.AppendLine(string.Format("[{0}] {1}", Date, v[0].Trim()));
+                else sb.AppendLine("".PadLeft(pad) + v[i].Trim());
             }
 
             File.AppendAllText(FileName, sb.ToString());
         }
-        internal static void Write(Exception e)
+
+        internal static void Write(string v)
         {
-            WriteError(e.Message);
-            foreach(string line in e.StackTrace.Split('\n'))
-            {
-                WriteError(line);
-            }
+            Write(v.Split('\n'), 3);
         }
 
-        internal static void WriteError(string v)
+        internal static void WriteError(Exception e)
         {
-            Write("[ERROR] " + v);
+            List<string> lines = new List<string>();
+            lines.Add("[ERROR] " + e.Message);
+            lines.AddRange(e.StackTrace.Split('\n'));
+
+            Write(lines.ToArray(), 11);
         }
     }
 }

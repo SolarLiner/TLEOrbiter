@@ -20,23 +20,23 @@ namespace Zeptomoby.OrbitTools
       /// <summary>
       /// The satellite name.
       /// </summary>
-      public string Name { get; private set; }
+      public string Name { get; }
 
-      /// <summary>
-      /// Information related to the satellite's orbit.
-      /// </summary>
-      public Orbit Orbit { get; private set; }
+        /// <summary>
+        /// Information related to the satellite's orbit.
+        /// </summary>
+        public Orbit Orbit { get; }
 
-      #endregion
+        #endregion
 
-      #region Construction
+        #region Construction
 
-      /// <summary>
-      /// Standard constructor.
-      /// </summary>
-      /// <param name="tle">TLE data.</param>
-      /// <param name="name">Optional satellite name.</param>
-      public Satellite(Tle tle, string name = "")
+        /// <summary>
+        /// Standard constructor.
+        /// </summary>
+        /// <param name="tle">TLE data.</param>
+        /// <param name="name">Optional satellite name.</param>
+        public Satellite(Tle tle, string name = "")
       {
          Orbit = new Orbit(tle);
 
@@ -50,26 +50,20 @@ namespace Zeptomoby.OrbitTools
          }
       }
 
-      #endregion
+        #endregion
 
-      /// <summary>
-      /// Returns the ECI position of the satellite.
-      /// </summary>
-      /// <param name="utc">The time (UTC) of position calculation.</param>
-      /// <returns>The ECI location of the satellite at the given time.</returns>
-      public EciTime PositionEci(DateTime utc)
-      {
-         return Orbit.PositionEci(utc);
-      }
+        /// <summary>
+        /// Returns the ECI position of the satellite.
+        /// </summary>
+        /// <param name="utc">The time (UTC) of position calculation.</param>
+        /// <returns>The ECI location of the satellite at the given time.</returns>
+        public EciTime PositionEci(DateTime utc) => Orbit.PositionEci(utc);
 
-      /// <summary>
-      /// Returns the ECI position of the satellite.
-      /// </summary>
-      /// <param name="mpe">The time of position calculation, in minutes-past-epoch.</param>
-      /// <returns>The ECI location of the satellite at the given time.</returns>
-      public EciTime PositionEci(double mpe)
-      {
-         return Orbit.PositionEci(mpe);
-      }
-   }
+        /// <summary>
+        /// Returns the ECI position of the satellite.
+        /// </summary>
+        /// <param name="mpe">The time of position calculation, in minutes-past-epoch.</param>
+        /// <returns>The ECI location of the satellite at the given time.</returns>
+        public EciTime PositionEci(double mpe) => Orbit.PositionEci(mpe);
+    }
 }

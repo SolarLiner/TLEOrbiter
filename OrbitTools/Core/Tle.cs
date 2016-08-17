@@ -118,98 +118,44 @@ namespace Zeptomoby.OrbitTools
       // Value - cached value
       private Dictionary<int, double> m_Cache;
 
-      #region Properties
+        #region Properties
 
-      public string Name
-      {
-         get { return m_Line0; }
-      }
+        public string Name => m_Line0;
 
-      public string Line1
-      {
-         get { return m_Line1; }
-      }
+          public string Line1 => m_Line1;
 
-      public string Line2
-      {
-         get { return m_Line2; }
-      }
+          public string Line2 => m_Line2;
 
-      public string NoradNumber
-      {
-         get { return GetField(Field.NoradNum, false); }
-      }
+          public string NoradNumber => GetField(Field.NoradNum, false);
 
-      public string Eccentricity
-      {
-         get { return GetField(Field.Eccentricity, false); }
-      }
+          public string Eccentricity => GetField(Field.Eccentricity, false);
 
-      public string Inclination
-      {
-         get { return GetField(Field.Inclination, true); }
-      }
+          public string Inclination => GetField(Field.Inclination, true);
 
-      public string Epoch
-      {
-         get
-         {
-            return string.Format(CultureInfo.InvariantCulture, "{0:00}{1:000.00000000}",
-                                 GetField(Field.EpochYear), GetField(Field.EpochDay));
-         }
-      }
+          public string Epoch => string.Format(CultureInfo.InvariantCulture, "{0:00}{1:000.00000000}",
+                       GetField(Field.EpochYear), GetField(Field.EpochDay));
 
-      public string IntlDescription
-      {
-         get { return GetField(Field.IntlDesc, false); }
-      }
+          public string IntlDescription => GetField(Field.IntlDesc, false);
 
-      public string SetNumber
-      {
-         get { return GetField(Field.SetNumber, false); }
-      }
+          public string SetNumber => GetField(Field.SetNumber, false);
 
-      public string OrbitAtEpoch
-      {
-         get { return GetField(Field.OrbitAtEpoch, false); }
-      }
+          public string OrbitAtEpoch => GetField(Field.OrbitAtEpoch, false);
 
-      public string RAAscendingNode
-      {
-         get { return GetField(Field.Raan, true); }
-      }
+          public string RAAscendingNode => GetField(Field.Raan, true);
 
-      public string ArgPerigee
-      {
-         get { return GetField(Field.ArgPerigee, true); }
-      }
+          public string ArgPerigee => GetField(Field.ArgPerigee, true);
 
-      public string MeanAnomaly
-      {
-         get { return GetField(Field.MeanAnomaly, true); }
-      }
+          public string MeanAnomaly => GetField(Field.MeanAnomaly, true);
 
-      public string MeanMotion
-      {
-         get { return GetField(Field.MeanMotion, true); }
-      }
+          public string MeanMotion => GetField(Field.MeanMotion, true);
 
-      public string MeanMotionDt
-      {
-         get { return GetField(Field.MeanMotionDt, false); }
-      }
+          public string MeanMotionDt => GetField(Field.MeanMotionDt, false);
 
-      public string MeanMotionDt2
-      {
-         get { return GetField(Field.MeanMotionDt2, false); }
-      }
+          public string MeanMotionDt2 => GetField(Field.MeanMotionDt2, false);
 
-      public string BStarDrag
-      {
-         get { return GetField(Field.BStarDrag, false); }
-      }
+          public string BStarDrag => GetField(Field.BStarDrag, false);
 
-      public Julian EpochJulian
+        public Julian EpochJulian
       {
          get
          {
@@ -347,33 +293,30 @@ namespace Zeptomoby.OrbitTools
             m_Line2.Substring(TLE2_COL_REVATEPOCH, TLE2_LEN_REVATEPOCH).TrimStart();
       }
 
-      #endregion
+        #endregion
 
-      #region GetField
+        #region GetField
 
-      /// <summary>
-      /// Returns the requested TLE data field.
-      /// </summary>
-      /// <param name="fld">The field to return.</param>
-      /// <returns>The requested field, in native form.</returns>
-      public double GetField(Field fld)
-      {
-         return GetField(fld, Unit.Native);
-      }
+        /// <summary>
+        /// Returns the requested TLE data field.
+        /// </summary>
+        /// <param name="fld">The field to return.</param>
+        /// <returns>The requested field, in native form.</returns>
+        public double GetField(Field fld) => GetField(fld, Unit.Native);
 
-      /// <summary>
-      /// Returns the requested TLE data field as a type double.
-      /// </summary>
-      /// <remarks>
-      /// The numeric return values are cached; requesting the same field 
-      /// repeatedly incurs minimal overhead.
-      /// </remarks>
-      /// <param name="fld">The TLE field to retrieve.</param>
-      /// <param name="units">Specifies the units desired.</param>
-      /// <returns>
-      /// The requested field's value, converted to the correct units if necessary.
-      /// </returns>
-      public double GetField(Field fld, Unit units)
+        /// <summary>
+        /// Returns the requested TLE data field as a type double.
+        /// </summary>
+        /// <remarks>
+        /// The numeric return values are cached; requesting the same field 
+        /// repeatedly incurs minimal overhead.
+        /// </remarks>
+        /// <param name="fld">The TLE field to retrieve.</param>
+        /// <param name="units">Specifies the units desired.</param>
+        /// <returns>
+        /// The requested field's value, converted to the correct units if necessary.
+        /// </returns>
+        public double GetField(Field fld, Unit units)
       {
          // Return cache contents if it exists, else populate cache.
          int key = Key(units, fld);
@@ -386,7 +329,7 @@ namespace Zeptomoby.OrbitTools
          else
          {
             // Value not in cache; add it
-            double valNative = Double.Parse(m_Field[fld].ToString(), CultureInfo.InvariantCulture);
+            double valNative = Double.Parse(m_Field[fld], CultureInfo.InvariantCulture);
             double valConv   = ConvertUnits(valNative, fld, units); 
             m_Cache[key]     = valConv;
 
@@ -403,7 +346,7 @@ namespace Zeptomoby.OrbitTools
       /// <returns>The requested field as a string.</returns>
       public string GetField(Field fld, bool appendUnits)
       {
-         string str = m_Field[fld].ToString();
+         string str = m_Field[fld];
    
          if (appendUnits)
          {
@@ -413,25 +356,22 @@ namespace Zeptomoby.OrbitTools
          return str.Trim();
       }
 
-      #endregion
+        #endregion
 
-      #region Utility
+        #region Utility
 
-      // ///////////////////////////////////////////////////////////////////////////
-      // Generates a key for the TLE field cache
-      private static int Key(Unit u, Field f)
-      {
-         return ((int)u * 100) + (int)f;
-      }
+        // ///////////////////////////////////////////////////////////////////////////
+        // Generates a key for the TLE field cache
+        private static int Key(Unit u, Field f) => ((int)u * 100) + (int)f;
 
-      /// <summary>
-      /// Converts the given TLE field to the requested units.
-      /// </summary>
-      /// <param name="valNative">Value to convert (native units).</param>
-      /// <param name="fld">Field ID of the value being converted.</param>
-      /// <param name="units">Units to convert to.</param>
-      /// <returns>The converted value.</returns>
-      protected static double ConvertUnits(double valNative,
+        /// <summary>
+        /// Converts the given TLE field to the requested units.
+        /// </summary>
+        /// <param name="valNative">Value to convert (native units).</param>
+        /// <param name="fld">Field ID of the value being converted.</param>
+        /// <param name="units">Units to convert to.</param>
+        /// <returns>The converted value.</returns>
+        protected static double ConvertUnits(double valNative,
                                            Field fld,
                                            Unit  units)
       {

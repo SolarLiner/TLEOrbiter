@@ -1,5 +1,7 @@
-﻿using AOSP;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using AOSP;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace TLEOrbiter
@@ -37,27 +39,38 @@ namespace TLEOrbiter
         private void BT_ImportTLE_Click(object sender, EventArgs e)
         {
             ImportTLE IT = new ImportTLE();
+            List<string> errorVessels = new List<string>();
 
             if (IT.ShowDialog() != DialogResult.OK) return;
 
             string[] content = IT.TLEData.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < content.Length; i += 3)
             {
-                string tname = content[i + 0].Trim() + '\n';
-                string tle = tname;
-                tle += content[i + 1] + '\n';
-                tle += content[i + 2];
-
-                Log.Write("One TLE:\n" + tle);
+                string tname = content[i + 0].Trim();
+                string strTle = tname + '\n';
+                strTle += content[i + 1] + '\n';
+                strTle += content[i + 2];
 
                 ListViewItem lvi = LV_Ships.Items.Add(tname);
-                OrbVessel OV = new OrbVessel("ShuttlePB", tle.Split('\n'));
-                lvi.SubItems.Add(OV.Name);
-                lvi.SubItems.Add(OV.VesselClass);
-                lvi.SubItems.Add(tle);
-                lvi.Tag = OV;
-                lvi.Checked = true;
+                try
+                {
+                    OrbVessel OV = new OrbVessel("ShuttlePB", strTle.Split('\n'));
+                    lvi.SubItems.Add(OV.Name);
+                    lvi.SubItems.Add(OV.VesselClass);
+                    lvi.SubItems.Add(strTle);
+                    lvi.Tag = OV;
+                    lvi.Checked = true;
+                } catch (Exception ex )
+                {
+                    Log.Write(string.Format("[ERROR] Could not add '{0}':", tname));
+                    Log.WriteError(ex);
+                    errorVessels.Add(tname);
+                    lvi.Remove();
+                }
             }
+
+            MessageBox.Show("These entries could not be added:\n" + string.Join("\n", errorVessels.ToArray())
+                            + "\n\nPlease check the logs.", "Error importing TLE", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void PopulateSCN()
@@ -65,9 +78,10 @@ namespace TLEOrbiter
             // Populate ships
             Log.Write("MainForm.PopulateSCN()");
             SCN.Ships.Clear();
-            foreach (ListViewItem lvi in LV_Ships.Items)
+            SCN.MJD = SCN.HasMJD ? SCN.MJD : Misc.GetMJD(DateTime.UtcNow);
+            foreach( ListViewItem lvi in LV_Ships.Items )
             {
-                if (!lvi.Checked) continue;
+                if( !lvi.Checked ) continue;
                 Log.Write("Ship: " + (lvi.Tag as OrbVessel).Name);
                 SCN.Ships.Add((OrbVessel)lvi.Tag);
             }

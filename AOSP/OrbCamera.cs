@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -93,8 +94,8 @@ namespace AOSP
             Target = string.Empty;
             Pos = new Vector3(0, 5, 2);
             TrackMode = CameraTrackMode.TargetRelative;
-            GroundLocation = new double[3] { 0, 0, 0 };
-            GroundDirection = new double[2] { 0, 0 };
+            GroundLocation = new double[] { 0, 0, 0 };
+            GroundDirection = new double[] { 0, 0 };
             FieldOfView = 60.0;
         }
 
@@ -109,8 +110,8 @@ namespace AOSP
             Target = target;
             Pos = new Vector3(0, 5, 2);
             TrackMode = CameraTrackMode.TargetRelative;
-            GroundLocation = new double[3] { 0, 0, 0 };
-            GroundDirection = new double[2] { 0, 0 };
+            GroundLocation = new double[] { 0, 0, 0 };
+            GroundDirection = new double[] { 0, 0 };
             FieldOfView = 60.0;
         }
 
@@ -127,8 +128,8 @@ namespace AOSP
             RefBody = refbody;
             Pos = new Vector3(0, 5, 2);
             TrackMode = tmode;
-            GroundLocation = new double[3] { 0, 0, 0 };
-            GroundDirection = new double[2] { 0, 0 };
+            GroundLocation = new double[] { 0, 0, 0 };
+            GroundDirection = new double[] { 0, 0 };
             FieldOfView = 60.0;
         }
 
@@ -141,13 +142,13 @@ namespace AOSP
         /// <param name="refbody">Reference body (for Target[from|to] and Ground track modes).</param>
         public OrbCamera(CameraMode mode, CameraTrackMode tmode, string target = "", string refbody = "")
         {
-            Mode = CameraMode.Extern;
+            Mode = mode;
             Target = target;
             RefBody = refbody;
             Pos = new Vector3(0, 5, 2);
-            TrackMode = CameraTrackMode.TargetRelative;
-            GroundLocation = new double[3] { 0, 0, 0 };
-            GroundDirection = new double[2] { 0, 0 };
+            TrackMode = tmode;
+            GroundLocation = new double[] { 0, 0, 0 };
+            GroundDirection = new double[] { 0, 0 };
             FieldOfView = 60.0;
         }
 
@@ -161,8 +162,8 @@ namespace AOSP
         public void ChangeCamPosition(double longitude, double latitude, double altitude, string refbody = "")
         {
             TrackMode = CameraTrackMode.Ground;
-            GroundLocation = new double[3] { longitude, latitude, altitude };
-            if (String.IsNullOrWhiteSpace(refbody)) RefBody = refbody;
+            GroundLocation = new double[] { longitude, latitude, altitude };
+            if ( string.IsNullOrWhiteSpace(refbody)) RefBody = refbody;
         }
 
         /// <summary>
@@ -189,10 +190,10 @@ namespace AOSP
                     break;
             }
 
-            if (!String.IsNullOrWhiteSpace(Target)) sb.AppendLine("  TARGET " + Target);
+            if (!string.IsNullOrWhiteSpace(Target)) sb.AppendLine("  TARGET " + Target);
             else sb.AppendLine("  TARGET " + firstship.Name);
 
-            sb.AppendLine(String.Format("  POS {0:0.00} {1:0.00} {2:0.00}", Pos.x, Pos.y, Pos.z));
+            sb.AppendLine(string.Format("  POS {0:0.00} {1:0.00} {2:0.00}", Pos.x, Pos.y, Pos.z));
             switch (TrackMode)
             {
                 case CameraTrackMode.TargetRelative:
@@ -212,12 +213,12 @@ namespace AOSP
                     break;
                 case CameraTrackMode.Ground:
                     sb.AppendLine("  TRACKMODE Ground " + RefBody);
-                    sb.AppendLine(String.Format("  GROUNDLOCATION {0:0.00} {1:0.00} {2:0.00}", GroundLocation));
-                    sb.AppendLine(String.Format("  GROUNDDIRECTION {0:0.000} {1:0.000}", GroundDirection));
+                    sb.AppendLine(string.Format("  GROUNDLOCATION {0:0.00} {1:0.00} {2:0.00}", GroundLocation));
+                    sb.AppendLine(string.Format("  GROUNDDIRECTION {0:0.000} {1:0.000}", GroundDirection));
                     break;
             }
 
-            sb.AppendLine(String.Format("  FOV {0:0.0}", FieldOfView));
+            sb.AppendLine(string.Format("  FOV {0:0.0}", FieldOfView));
 
             sb.Append("END_CAMERA");
             switch (Mode)
@@ -229,8 +230,6 @@ namespace AOSP
                 case CameraMode.VirtualCockpit:
                     sb.AppendLine("BEGIN_VC");
                     sb.Append("END_VC");
-                    break;
-                default:
                     break;
             }
 

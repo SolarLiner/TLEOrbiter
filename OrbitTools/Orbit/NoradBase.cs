@@ -28,9 +28,9 @@ namespace Zeptomoby.OrbitTools
       protected double m_xnodot;  protected double m_xnodcf;  protected double m_t2cof;   protected double m_xlcof;   
       protected double m_aycof;   protected double m_x7thm1;
 
-      protected Orbit Orbit { get; private set; }
+      protected Orbit Orbit { get; }
 
-      public abstract EciTime GetPosition(double tsince);
+        public abstract EciTime GetPosition(double tsince);
 
       #endregion
 

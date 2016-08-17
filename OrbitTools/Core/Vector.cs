@@ -94,53 +94,41 @@ namespace Zeptomoby.OrbitTools
          W -= vec.W;
       }
 
-      /// <summary>
-      /// Calculates the angle, in radians, between this vector and another.
-      /// </summary>
-      /// <param name="vec">The second vector.</param>
-      /// <returns>
-      /// The angle between the two vectors, in radians.
-      /// </returns>
-      public double Angle(Vector vec)
-      {
-         return Math.Acos(Dot(vec) / (Magnitude() * vec.Magnitude()));
-      }
+        /// <summary>
+        /// Calculates the angle, in radians, between this vector and another.
+        /// </summary>
+        /// <param name="vec">The second vector.</param>
+        /// <returns>
+        /// The angle between the two vectors, in radians.
+        /// </returns>
+        public double Angle(Vector vec) => Math.Acos(Dot(vec) / (Magnitude() * vec.Magnitude()));
 
-      /// <summary>
-      /// Calculates the magnitude of the vector.
-      /// </summary>
-      /// <returns>The vector magnitude.</returns>
-      public double Magnitude()
-      {
-         return Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
-      }
+        /// <summary>
+        /// Calculates the magnitude of the vector.
+        /// </summary>
+        /// <returns>The vector magnitude.</returns>
+        public double Magnitude() => Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
 
-      /// <summary>
-      /// Calculates the dot product of this vector and another.
-      /// </summary>
-      /// <param name="vec">The second vector.</param>
-      /// <returns>The dot product.</returns>
-      public double Dot(Vector vec)
-      {
-         return (X * vec.X) + (Y * vec.Y) + (Z * vec.Z);
-      }
+        /// <summary>
+        /// Calculates the dot product of this vector and another.
+        /// </summary>
+        /// <param name="vec">The second vector.</param>
+        /// <returns>The dot product.</returns>
+        public double Dot(Vector vec) => (X * vec.X) + (Y * vec.Y) + (Z * vec.Z);
 
-      /// <summary>
-      /// Calculates the distance between two vectors as points in XYZ space.
-      /// </summary>
-      /// <param name="vec">The second vector.</param>
-      /// <returns>The calculated distance.</returns>
-      public double Distance(Vector vec)
-      {
-         return Math.Sqrt(Math.Pow(X - vec.X, 2.0) + 
-                          Math.Pow(Y - vec.Y, 2.0) + 
-                          Math.Pow(Z - vec.Z, 2.0));
-      }
+        /// <summary>
+        /// Calculates the distance between two vectors as points in XYZ space.
+        /// </summary>
+        /// <param name="vec">The second vector.</param>
+        /// <returns>The calculated distance.</returns>
+        public double Distance(Vector vec) => Math.Sqrt(Math.Pow(X - vec.X, 2.0) +
+                 Math.Pow(Y - vec.Y, 2.0) +
+                 Math.Pow(Z - vec.Z, 2.0));
 
-      /// <summary>
-      /// Rotates the XYZ coordinates around the X-axis.
-      /// </summary>
-      public void RotateX(double radians)
+        /// <summary>
+        /// Rotates the XYZ coordinates around the X-axis.
+        /// </summary>
+        public void RotateX(double radians)
       {
          double y = Y;
 
@@ -179,5 +167,5 @@ namespace Zeptomoby.OrbitTools
          Y += y;
          Z += z;
       }
-   }
+    }
 }

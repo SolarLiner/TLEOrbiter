@@ -37,38 +37,38 @@ namespace Zeptomoby.OrbitTools
 
       #region Properties
 
-      private Tle   Tle      { get; set; }
-      public string TleLine1 { get { return Tle.Line1; }}
-      public string TleLine2 { get { return Tle.Line2; }}
+      private Tle   Tle { get; }
+        public string TleLine1 => Tle.Line1;
+          public string TleLine2 => Tle.Line2;
 
-      public Julian   Epoch     { get; private set; }
-      public DateTime EpochTime { get { return Epoch.ToTime(); }}
+        public Julian   Epoch { get; }
+        public DateTime EpochTime => Epoch.ToTime();
 
-      private NoradBase NoradModel { get; set; }
+        private NoradBase NoradModel { get; }
 
-      // "Recovered" from the input elements
-      public double SemiMajor    { get { return m_aeAxisSemiMajorRec; }}
-      public double SemiMinor    { get { return m_aeAxisSemiMinorRec; }}
-      public double MeanMotion   { get { return m_rmMeanMotionRec;    }}
-      public double Major        { get { return 2.0 * SemiMajor;      }}
-      public double Minor        { get { return 2.0 * SemiMinor;      }}
-      public double Perigee      { get { return m_kmPerigeeRec;       }}
-      public double Apogee       { get { return m_kmApogeeRec;        }}
+        // "Recovered" from the input elements
+        public double SemiMajor => m_aeAxisSemiMajorRec;
+          public double SemiMinor => m_aeAxisSemiMinorRec;
+          public double MeanMotion => m_rmMeanMotionRec;
+          public double Major => 2.0 * SemiMajor;
+          public double Minor => 2.0 * SemiMinor;
+          public double Perigee => m_kmPerigeeRec;
+          public double Apogee => m_kmApogeeRec;
 
-      public double Inclination    { get { return m_Inclination;   }}
-      public double Eccentricity   { get { return m_Eccentricity;  }}
-      public double RAAN           { get { return m_RAAN;          }}
-      public double ArgPerigee     { get { return m_ArgPerigee;    }}
-      public double BStar          { get { return m_BStar;         }}
-      public double Drag           { get { return m_Drag;          }}
-      public double MeanAnomaly    { get { return m_MeanAnomaly;   }}
-      private double TleMeanMotion { get { return m_TleMeanMotion; }}
+          public double Inclination => m_Inclination;
+          public double Eccentricity => m_Eccentricity;
+          public double RAAN => m_RAAN;
+          public double ArgPerigee => m_ArgPerigee;
+          public double BStar => m_BStar;
+          public double Drag => m_Drag;
+          public double MeanAnomaly => m_MeanAnomaly;
+          private double TleMeanMotion => m_TleMeanMotion;
 
-      public string SatNoradId    { get { return Tle.NoradNumber; }}
-      public string SatName       { get { return Tle.Name;        }}
-      public string SatNameLong   { get { return SatName + " #" + SatNoradId; }}
+          public string SatNoradId => Tle.NoradNumber;
+          public string SatName => Tle.Name;
+          public string SatNameLong => SatName + " #" + SatNoradId;
 
-      public TimeSpan Period 
+        public TimeSpan Period 
       {
          get 
          { 
@@ -172,70 +172,49 @@ namespace Zeptomoby.OrbitTools
          return eci;
       }
 
-      /// <summary>
-      /// Calculate ECI position/velocity for a given time.
-      /// </summary>
-      /// <param name="utc">Target time (UTC).</param>
-      /// <returns>Kilometer-based position/velocity ECI coordinates.</returns>
-      public EciTime PositionEci(DateTime utc)
-      {
-         return PositionEci(TPlusEpoch(utc).TotalMinutes);
-      }
+        /// <summary>
+        /// Calculate ECI position/velocity for a given time.
+        /// </summary>
+        /// <param name="utc">Target time (UTC).</param>
+        /// <returns>Kilometer-based position/velocity ECI coordinates.</returns>
+        public EciTime PositionEci(DateTime utc) => PositionEci(TPlusEpoch(utc).TotalMinutes);
 
-      /// <summary>
-      /// Calculate satellite ECI position/velocity for a given time.
-      /// </summary>
-      /// <param name="mpe">Target time, in minutes past the TLE epoch.</param>
-      /// <returns>Kilometer-based position/velocity ECI coordinates.</returns>
-      [Obsolete("Use PositionEci()")]
-      public EciTime GetPosition(double mpe)
-      {
-         return PositionEci(mpe);
-      }
+        /// <summary>
+        /// Calculate satellite ECI position/velocity for a given time.
+        /// </summary>
+        /// <param name="mpe">Target time, in minutes past the TLE epoch.</param>
+        /// <returns>Kilometer-based position/velocity ECI coordinates.</returns>
+        [Obsolete("Use PositionEci()")]
+        public EciTime GetPosition(double mpe) => PositionEci(mpe);
 
-      /// <summary>
-      /// Calculate ECI position/velocity for a given time.
-      /// </summary>
-      /// <param name="utc">Target time (UTC).</param>
-      /// <returns>Kilometer-based position/velocity ECI coordinates.</returns>
-      [Obsolete("Use PositionEci()")]
-      public EciTime GetPosition(DateTime utc)
-      {
-         return PositionEci(TPlusEpoch(utc).TotalMinutes);
-      }
+        /// <summary>
+        /// Calculate ECI position/velocity for a given time.
+        /// </summary>
+        /// <param name="utc">Target time (UTC).</param>
+        /// <returns>Kilometer-based position/velocity ECI coordinates.</returns>
+        [Obsolete("Use PositionEci()")]
+        public EciTime GetPosition(DateTime utc) => PositionEci(TPlusEpoch(utc).TotalMinutes);
 
-      #endregion
+        #endregion
 
-      // ///////////////////////////////////////////////////////////////////////////
-      // Returns elapsed time from epoch to given time.
-      // Note: "Predicted" TLEs can have epochs in the future.
-      public TimeSpan TPlusEpoch(DateTime utc) 
-      {
-         return (utc - EpochTime);
-      }
+        // ///////////////////////////////////////////////////////////////////////////
+        // Returns elapsed time from epoch to given time.
+        // Note: "Predicted" TLEs can have epochs in the future.
+        public TimeSpan TPlusEpoch(DateTime utc) => (utc - EpochTime);
 
-      // ///////////////////////////////////////////////////////////////////////////
-      // Returns elapsed time from epoch to current time.
-      // Note: "Predicted" TLEs can have epochs in the future.
-      public TimeSpan TPlusEpoch()
-      {
-         return TPlusEpoch(DateTime.UtcNow);
-      }
+        // ///////////////////////////////////////////////////////////////////////////
+        // Returns elapsed time from epoch to current time.
+        // Note: "Predicted" TLEs can have epochs in the future.
+        public TimeSpan TPlusEpoch() => TPlusEpoch(DateTime.UtcNow);
 
-      #region Utility
+        #region Utility
 
-      // ///////////////////////////////////////////////////////////////////
-      protected double GetRad(Tle.Field fld) 
-      { 
-         return Tle.GetField(fld, Tle.Unit.Radians); 
-      }
+        // ///////////////////////////////////////////////////////////////////
+        protected double GetRad(Tle.Field fld) => Tle.GetField(fld, Tle.Unit.Radians);
 
-      // ///////////////////////////////////////////////////////////////////
-      protected double GetDeg(Tle.Field fld) 
-      { 
-         return Tle.GetField(fld, Tle.Unit.Degrees); 
-      }
+        // ///////////////////////////////////////////////////////////////////
+        protected double GetDeg(Tle.Field fld) => Tle.GetField(fld, Tle.Unit.Degrees);
 
-      #endregion
-   }
+        #endregion
+    }
 }

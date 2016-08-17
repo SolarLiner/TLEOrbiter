@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,9 +54,6 @@ namespace AOSP
         /// <summary>
         /// Returns the Orbiter formatted string. (ID:Level)
         /// </summary>
-        public override string ToString()
-        {
-            return _id + ":" + _lvl;
-        }
+        public override string ToString() => _id + ":" + _lvl;
     }
 }

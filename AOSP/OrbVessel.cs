@@ -1,8 +1,10 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Zeptomoby.OrbitTools;
 
 namespace AOSP
 {
@@ -28,52 +30,50 @@ namespace AOSP
         double[] _pos;
         Vector3 _rpos;
         Vector3 _rvel;
-        Vector3 _arot;
-        Vector3 _vrot;
 
         /// <summary>
         /// Name of the ship.
         /// </summary>
         public string Name
-        { 
-            get { return _name; }
-            set { _name = value; }
-        } 
+        {
+            get { return _name.Trim().Replace(" ", "_"); }
+            set { _name = value.Trim().Replace(" ", "_"); }
+        }
 
         /// <summary>
         /// Class of the ship.
         /// </summary>
         public string VesselClass
-        { 
+        {
             get { return _class; }
             set { _class = value; }
-        } 
+        }
 
         /// <summary>
         /// Status of the vessel: Landed or Orbiting.
         /// </summary>
         public string Status
-        { 
+        {
             get { return _stat; }
             set
             {
-                switch (value.ToLowerInvariant())
+                switch( value.ToLowerInvariant() )
                 {
                     case "landed":
                         _stat = "Landed";
                         break;
-                    case "orbiting":
+                    default:
                         _stat = "Orbiting";
                         break;
                 }
             }
-        } 
+        }
 
         /// <summary>
         /// Reference body.
         /// </summary>
         public string RefBody
-        { 
+        {
             get { return _body; }
             set { _body = value; }
         }
@@ -81,17 +81,11 @@ namespace AOSP
         /// <summary>
         /// Landed base, in case of status Landed. Throws a WrongVesselStatus if orbiting.
         /// </summary>
-        public string Base
-        {
-            get
-            {
-                /*if (_stat == "Landed")
-                    return _base;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getBase"));*/
-                return _base;
-            }
-        }
+        /*if (_stat == "Landed")
+    return _base;
+else
+    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getBase"));*/
+        public string Base => _base;
 
         /// <summary>
         /// Sets the ship's landed base and pad.
@@ -100,7 +94,7 @@ namespace AOSP
         /// <param name="landingpad">Landing pad of the base.</param>
         public void SetBase(string sBase, int landingpad)
         {
-            _base = sBase+":"+landingpad.ToString();
+            _base = sBase + ":" + landingpad;
         }
 
         /// <summary>
@@ -127,27 +121,21 @@ namespace AOSP
             }
             set
             {
-                if (_stat == "Landed")
+                if( _stat == "Landed" )
                     _heading = value;
                 else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setHeading"));
+                    throw new VesselFlightStatusException("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setHeading"));
             }
         }
 
         /// <summary>
         /// Position relative to the reference, in case of status Landed. Throws a WrongVesselStatus if orbiting.
         /// </summary>
-        public double[] Pos
-        {
-            get
-            {
-                /*if (_stat == "Landed")
-                    return _pos;
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getPOS"));*/
-                return _pos;
-            }
-        }
+        /*if (_stat == "Landed")
+    return _pos;
+else
+    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: getPOS"));*/
+        public double[] Pos => _pos;
 
         /// <summary>
         /// Sets new position over the surface.
@@ -156,10 +144,10 @@ namespace AOSP
         /// <param name="lng">Longitude.</param>
         public void SetPOS(double lat, double lng)
         {
-            if (_stat == "Landed")
-                    _pos = new double[] {lng, lat};
-                else
-                    throw new WrongVesselStatusError("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setPOS"));
+            if( _stat == "Landed" )
+                _pos = new double[] { lng, lat };
+            else
+                throw new VesselFlightStatusException("Requested status: Landed | Current Status: Orbiting", new Exception("Vessel: " + _name + " | event: setPOS"));
         }
 
         /// <summary>
@@ -192,13 +180,12 @@ namespace AOSP
         {
             get
             {
-                switch (_stat)
+                switch( _stat )
                 {
                     default:
-                    case "Landed":
                         return false;
                     case "Orbiting":
-                        return RPos == null || RVel == null;
+                        return !Vector3.IsZero(RPos) && !Vector3.IsZero(RVel);
                 }
             }
         }
@@ -207,7 +194,7 @@ namespace AOSP
         /// Orbital elements of the ship. Useless if landed.
         /// </summary>
         public OrbElements Elements
-        { 
+        {
             get;
             set;
         }
@@ -288,7 +275,7 @@ namespace AOSP
         /// <param name="name">Name of the vessel.</param>
         /// <param name="Class">Class of the vessel (path to the config file, relative to Config folder).</param>
         /// <param name="BodyRef">Reference body.</param>
-        /// <param name="pos">Porition on the surface.</param>
+        /// <param name="pos">Position on the surface.</param>
         /// <param name="heading">Heading.</param>
         public OrbVessel(string name, string Class, string BodyRef, double[] pos, double heading)
         {
@@ -326,24 +313,69 @@ namespace AOSP
         }
 
         /// <summary>
-        /// Special constructor: Put the three TLE lines (title, line 1 & 2) and have a vessel properly configured !
+        /// Special constructor: Put the three TLE lines (title, line 1 &amp; 2) and have a vessel properly configured !
         /// </summary>
         /// <param name="Class">Class of the vessel (path to the config file, relative to Config folder).</param>
-        /// <param name="TLE">TLE lines (title, and lines 1&2).</param>
+        /// <param name="TLElines">TLE lines (title, and lines 1&2).</param>
+        /// <param name="utc">Date at which to interpolate the elements to</param>
+        public OrbVessel(string Class, string[] TLElines, DateTime utc)
+        {
+            Init();
+
+            VesselClass = Class;
+            _body = "Earth";
+
+            ProcessTLE(TLElines, utc);
+
+            Name = TLElines[0];
+
+            _stat = "Orbiting";
+        }
+        /// <summary>
+        /// Special constructor: Put the three TLE lines (title, line 1 &amp; 2) and have a vessel properly configured !
+        /// </summary>
+        /// <param name="Class">Class of the vessel (path to the config file, relative to Config folder).</param>
+        /// <param name="TLElines">TLE lines (title, and lines 1&amp;2).</param>
         public OrbVessel(string Class, string[] TLElines)
         {
             Init();
 
             VesselClass = Class;
             _body = "Earth";
-            Elements = new OrbElements(TLElines);
-            Name = TLElines[0];
+
+            ProcessTLE(TLElines);
 
             _stat = "Orbiting";
         }
 
         /// <summary>
-        /// Returns the properly formatted Ship scenario block. 
+        /// Processes TLE data through SDP4/SGP4.
+        /// </summary>
+        /// <param name="tle">TLE Data (2 lines + name as line 0)</param>
+        /// <param name="utc">Date to interpolate to, in UTC.</param>
+        public void ProcessTLE(string[] tle, DateTime utc)
+        {
+            Satellite sat = new Satellite(new Tle(tle[0], tle[1], tle[2]));
+            EciTime eci = sat.PositionEci(utc);
+
+            RPos = eci.Position;
+
+            RVel = eci.Velocity;
+            RVel *= -1;
+
+            Name = tle[0];
+        }
+        /// <summary>
+        /// Processes TLE data through SDP4/SGP4.
+        /// </summary>
+        /// <param name="tle">TLE Data (2 lines + name as line 0)</param>
+        public void ProcessTLE(string[] tle)
+        {
+            ProcessTLE(tle, DateTime.UtcNow);
+        }
+
+        /// <summary>
+        /// Returns the properly formatted Ship scenario block.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -351,72 +383,61 @@ namespace AOSP
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(Name + ':' + VesselClass);
-            if (_stat == "Landed")
+            if( _stat == "Landed" )
             {
                 sb.AppendLine("  STATUS Landed " + RefBody);
-                if(String.IsNullOrWhiteSpace(Base)) sb.AppendLine(String.Format("  POS {0} {1}", Pos));
-                else sb.AppendLine("  BASE "+Base);
-                sb.AppendLine(String.Format("  HEADING {0:0.00}", Heading));
+                if( string.IsNullOrWhiteSpace(Base) ) sb.AppendLine(string.Format("  POS {0} {1}", Pos[0], Pos[1]));
+                else sb.AppendLine("  BASE " + Base);
+                sb.AppendLine(string.Format("  HEADING {0:0.00}", Heading));
             }
             else
             {
                 sb.AppendLine("  STATUS Orbiting " + RefBody);
-                
-                if(HasPOSROT)
+
+                if( HasPOSROT )
                 {
-                    sb.AppendLine("  RPOS " + RPos.ToString());
-                    sb.AppendLine("  RVEL " + RVel.ToString());
+                    sb.AppendLine("  RPOS " + RPos);
+                    sb.AppendLine("  RVEL " + RVel);
                 }
                 else
                 {
-                    sb.AppendLine("  ELEMENTS " + Elements.ToString());
+                    sb.AppendLine("  ELEMENTS " + Elements);
                 }
             }
 
-            sb.AppendLine("  AROT " + ARot.ToString());
-            sb.AppendLine("  VROT " + VRot.ToString());
+            sb.AppendLine("  AROT " + ARot);
+            sb.AppendLine("  VROT " + VRot);
 
-            try
+            if( PrpLevel.Count != 0 )
             {
                 string prplevels = "";
-                foreach (OrbLevels lvl in PrpLevel)
+                foreach( OrbLevels lvl in PrpLevel )
                 {
-                    prplevels += lvl.ToString() + " ";
+                    prplevels += lvl + " ";
                 }
                 sb.AppendLine("  PRPLEVEL " + prplevels.Trim());
             }
-            catch { }
-
-            try
+            if( ThLevel.Count != 0 )
             {
                 string thlevel = "";
-                foreach (OrbLevels lvl in ThLevel)
+                foreach( OrbLevels lvl in ThLevel )
                 {
-                    thlevel += lvl.ToString() + " ";
+                    thlevel += lvl + " ";
                 }
                 sb.AppendLine("  THLEVEL " + thlevel.Trim());
             }
-            catch { }
 
-            try
+            string dockinfo = "";
+            foreach( OrbDockInfo dock in DockInfo )
             {
-                string dockinfo = "";
-                foreach (OrbDockInfo dock in DockInfo)
-                {
-                    dockinfo += dock.ToString() + " ";
-                }
-                sb.AppendLine("  DOCKINFO " + dockinfo.Trim());
+                dockinfo += dock + " ";
             }
-            catch { }
+            sb.AppendLine("  DOCKINFO " + dockinfo.Trim());
 
-            try
+            foreach( KeyValuePair<string, string> pair in Extra )
             {
-                foreach (KeyValuePair<string, string> pair in Extra)
-                {
-                    sb.AppendLine("  " + pair.Key + " " + pair.Value);
-                }
+                sb.AppendLine("  " + pair.Key + " " + pair.Value);
             }
-            catch { }
             sb.Append("END");
 
             return sb.ToString();

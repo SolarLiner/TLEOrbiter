@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace AOSP
         /// <summary>
         /// Returns true if the scenario has MJD date. Else false.
         /// </summary>
-        public bool HasMJD { get { return MJD != -1d; } }
+        public bool HasMJD => MJD != -1d;
 
         /// <summary>
         /// Handles the MJD of the scenario.
@@ -31,7 +32,7 @@ namespace AOSP
         /// <summary>
         /// Returns true if the scenario contains help.
         /// </summary>
-        public bool HasHelp { get { return Help != null; } }
+        public bool HasHelp => Help != null;
 
         /// <summary>
         /// Handles the "help" line of the scenario.Path is relative to the "Html\Scenarios" folder. Template: [path],[page].
@@ -41,7 +42,7 @@ namespace AOSP
         /// <summary>
         /// Returns true if the scenario has a special context for bases.
         /// </summary>
-        public bool HasContext { get { return Context != null; } }
+        public bool HasContext => Context != null;
 
         /// <summary>
         /// Handles the context line of the scenario.
@@ -51,7 +52,7 @@ namespace AOSP
         /// <summary>
         /// Returns true if the scenario contains a script.
         /// </summary>
-        public bool HasScript { get { return Script != null; } }
+        public bool HasScript => Script != null;
 
         /// <summary>
         /// Handles the script path of the scenario, relative to the Script folder.
@@ -217,19 +218,17 @@ namespace AOSP
                                         break;
                                     case "GROUNDLOCATION":
                                         if (line.Length < 4) break;
-                                        cam.GroundLocation = new double[3] { double.Parse(line[1]), double.Parse(line[2]), double.Parse(line[3]) };
+                                        cam.GroundLocation = new double[] { double.Parse(line[1]), double.Parse(line[2]), double.Parse(line[3]) };
 
                                         break;
                                     case "GROUNDDIRECTION":
                                         if (line.Length < 3) break;
-                                        cam.GroundDirection = new double[2] { double.Parse(line[1]), double.Parse(line[2]) };
+                                        cam.GroundDirection = new double[] { double.Parse(line[1]), double.Parse(line[2]) };
 
                                         break;
                                     case "FOV":
                                         cam.FieldOfView = double.Parse(line[1]);
 
-                                        break;
-                                    default:
                                         break;
                                 }
                                 i++;
@@ -266,8 +265,6 @@ namespace AOSP
                                     Enum.TryParse<OrbHUD>(line2[1], out hud);
                                     HUDmode = hud;
 
-                                    break;
-                                default:
                                     break;
                             }
 
@@ -349,7 +346,7 @@ namespace AOSP
                                                 for (int j = 1; j<line.Count() - 1; j++)
                                                 {
                                                     string[] split = line[j].Split(':');
-                                                    dockinfo.Add(new OrbDockInfo() { DockID = int.Parse(split[0]), TargetDockID = int.Parse(split[1]), TargetVessel = split[2] });
+                                                    dockinfo.Add(new OrbDockInfo { DockID = int.Parse(split[0]), TargetDockID = int.Parse(split[1]), TargetVessel = split[2] });
                                                 }
                                                 ship.DockInfo = dockinfo;
                                                 break;
@@ -389,7 +386,7 @@ namespace AOSP
 
             sb.AppendLine("BEGIN_ENVIRONMENT");
             sb.AppendLine("  System " + System);
-            if(HasMJD) sb.AppendLine(String.Format("  Date MJD {0:00000.000000}", MJD));
+            if(HasMJD) sb.AppendLine(string.Format("  Date MJD {0:00000.000000}", MJD));
             if (HasHelp) sb.AppendLine("  HELP " + Help);
             if (HasContext) sb.AppendLine("  CONTEXT " + Context);
             if (HasScript) sb.AppendLine("  SCRIPT " + Script);
@@ -398,7 +395,7 @@ namespace AOSP
             sb.AppendLine();
 
             sb.AppendLine("BEGIN_FOCUS");
-            if(Ships.Count > 0) sb.AppendLine("  Ship " + (FocusShip == null ? Ships[0].Name : FocusShip));
+            if(Ships.Count > 0) sb.AppendLine("  Ship " + (FocusShip ?? Ships[0].Name));
             sb.AppendLine("END_FOCUS");
 
             sb.AppendLine();

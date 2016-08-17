@@ -38,7 +38,7 @@
             this.TB_TLEData = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TB_VesselName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // LB_TLEName
@@ -54,8 +54,11 @@
             // CB_VesselName
             // 
             resources.ApplyResources(this.CB_VesselName, "CB_VesselName");
+            this.CB_VesselName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CB_VesselName.FormattingEnabled = true;
             this.CB_VesselName.Name = "CB_VesselName";
+            this.CB_VesselName.Sorted = true;
+            this.CB_VesselName.SelectionChangeCommitted += new System.EventHandler(this.CB_VesselName_SelectionChangeCommitted);
             // 
             // GB_VesselData
             // 
@@ -68,6 +71,7 @@
             resources.ApplyResources(this.BT_OK, "BT_OK");
             this.BT_OK.Name = "BT_OK";
             this.BT_OK.UseVisualStyleBackColor = true;
+            this.BT_OK.Click += new System.EventHandler(this.BT_OK_Click);
             // 
             // BT_Cancel
             // 
@@ -91,10 +95,10 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
-            // textBox1
+            // TB_VesselName
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            resources.ApplyResources(this.TB_VesselName, "TB_VesselName");
+            this.TB_VesselName.Name = "TB_VesselName";
             // 
             // VesselEdit
             // 
@@ -102,7 +106,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BT_Cancel;
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.TB_VesselName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TB_TLEData);
@@ -117,6 +121,7 @@
             this.MinimizeBox = false;
             this.Name = "VesselEdit";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Load += new System.EventHandler(this.VesselEdit_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,6 +138,6 @@
         private System.Windows.Forms.TextBox TB_TLEData;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TB_VesselName;
     }
 }

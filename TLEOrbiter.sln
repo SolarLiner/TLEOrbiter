@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "OrbitTools\Core\Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit", "OrbitTools\Orbit\Orbit.csproj", "{BAA5FE10-3E3A-4D5D-AB3D-4B50D6AC0321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLiner.Generic", "..\SolarLiner.Generic\SolarLiner.Generic.csproj", "{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLiner.Generic", "Plugins\SolarLiner.Generic\SolarLiner.Generic.csproj", "{3A25ACC8-EA6E-4B8A-AE48-72DED6BE0810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

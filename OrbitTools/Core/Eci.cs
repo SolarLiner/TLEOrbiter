@@ -120,21 +120,18 @@ namespace Zeptomoby.OrbitTools
          Velocity.Mul(factor);
       }
 
-      /// <summary>
-      /// Returns a string representation of the coordinate and 
-      /// velocity XYZ values.
-      /// </summary>
-      /// <returns>The formatted string.</returns>
-      public override string ToString()
-      {
-         return string.Format("km:({0:F0}, {1:F0}, {2:F0}) km/s:({3:F1}, {4:F1}, {5:F1})",
-                              Position.X, Position.Y, Position.Z,
-                              Velocity.X, Velocity.Y, Velocity.Z);
-      }
-   }
+        /// <summary>
+        /// Returns a string representation of the coordinate and
+        /// velocity XYZ values.
+        /// </summary>
+        /// <returns>The formatted string.</returns>
+        public override string ToString() => string.Format("km:({0:F0}, {1:F0}, {2:F0}) km/s:({3:F1}, {4:F1}, {5:F1})",
+                       Position.X, Position.Y, Position.Z,
+                       Velocity.X, Velocity.Y, Velocity.Z);
+    }
 
    /// <summary>
-   /// Encapsulates an Earth Centered Inertial coordinate and 
+   /// Encapsulates an Earth Centered Inertial coordinate and
    /// associated time.
    /// </summary>
    public class EciTime : Eci

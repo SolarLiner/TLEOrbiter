@@ -19,50 +19,50 @@ namespace Zeptomoby.OrbitTools
       /// <summary>
       /// The name of the location.
       /// </summary>
-      public string Name { get; private set; }
+      public string Name { get; }
 
-      /// <summary>
-      /// Latitude, in radians. A negative value indicates latitude south.
-      /// </summary>
-      public double LatitudeRad { get { return Geo.LatitudeRad; } }
+        /// <summary>
+        /// Latitude, in radians. A negative value indicates latitude south.
+        /// </summary>
+        public double LatitudeRad => Geo.LatitudeRad;
 
-      /// <summary>
-      /// Longitude, in radians. A negative value indicates longitude west.
-      /// </summary>
-      public double LongitudeRad { get { return Geo.LongitudeRad; } }
+        /// <summary>
+        /// Longitude, in radians. A negative value indicates longitude west.
+        /// </summary>
+        public double LongitudeRad => Geo.LongitudeRad;
 
-      /// <summary>
-      /// Latitude, in degrees. A negative value indicates latitude south.
-      /// </summary>
-      public double LatitudeDeg { get { return Geo.LatitudeDeg; } }
+        /// <summary>
+        /// Latitude, in degrees. A negative value indicates latitude south.
+        /// </summary>
+        public double LatitudeDeg => Geo.LatitudeDeg;
 
-      /// <summary>
-      /// Longitude, in degrees. A negative value indicates longitude west.
-      /// </summary>
-      public double LongitudeDeg { get { return Geo.LongitudeDeg; } }
+        /// <summary>
+        /// Longitude, in degrees. A negative value indicates longitude west.
+        /// </summary>
+        public double LongitudeDeg => Geo.LongitudeDeg;
 
-      /// <summary>
-      /// The altitude of the site above the ellipsoid model, in kilometers
-      /// </summary>
-      public double Altitude { get { return Geo.Altitude; } }
-    
-      /// <summary>
-      /// The contained geodetic coordinates.
-      /// </summary>
-      public Geo Geo { get; private set; }
+        /// <summary>
+        /// The altitude of the site above the ellipsoid model, in kilometers
+        /// </summary>
+        public double Altitude => Geo.Altitude;
 
-      #endregion
+        /// <summary>
+        /// The contained geodetic coordinates.
+        /// </summary>
+        public Geo Geo { get; }
 
-      #region Construction
+        #endregion
 
-      /// <summary>
-      /// Standard constructor.
-      /// </summary>
-      /// <param name="degLat">Latitude in degrees (negative south).</param>
-      /// <param name="degLon">Longitude in degrees (negative west).</param>
-      /// <param name="kmAlt">Altitude in kilometers.</param>
-      /// <param name="model">The earth ellipsoid model.</param>
-      public Site(double degLat, double degLon, double kmAlt, string name = "")
+        #region Construction
+
+        /// <summary>
+        /// Standard constructor.
+        /// </summary>
+        /// <param name="degLat">Latitude in degrees (negative south).</param>
+        /// <param name="degLon">Longitude in degrees (negative west).</param>
+        /// <param name="kmAlt">Altitude in kilometers.</param>
+        /// <param name="model">The earth ellipsoid model.</param>
+        public Site(double degLat, double degLon, double kmAlt, string name = "")
       {
          Geo = new Geo(Globals.ToRadians(degLat),
                        Globals.ToRadians(degLon),
@@ -79,46 +79,37 @@ namespace Zeptomoby.OrbitTools
          Geo = new Geo(geo);
       }
 
-      #endregion
- 
-      /// <summary>
-      /// Calculates the ECI coordinates of the site.
-      /// </summary>
-      /// <param name="time">Time of position calculation.</param>
-      /// <returns>The site's ECI coordinates at the given time.</returns>
-      [Obsolete("Use PositionEci()")]
-      public EciTime GetPosition(Julian time)
-      {
-         return new EciTime(Geo, time);
-      }
+        #endregion
 
-      /// <summary>
-      /// Calculates the ECI coordinates of the site.
-      /// </summary>
-      /// <param name="date">Time of position calculation.</param>
-      /// <returns>The site's ECI coordinates at the given time.</returns>
-      public EciTime PositionEci(Julian time)
-      {
-         return new EciTime(Geo, time);
-      }
+        /// <summary>
+        /// Calculates the ECI coordinates of the site.
+        /// </summary>
+        /// <param name="time">Time of position calculation.</param>
+        /// <returns>The site's ECI coordinates at the given time.</returns>
+        [Obsolete("Use PositionEci()")]
+        public EciTime GetPosition(Julian time) => new EciTime(Geo, time);
 
-      /// <summary>
-      /// Calculates the ECI coordinates of the site.
-      /// </summary>
-      /// <param name="utc">Time of position calculation.</param>
-      /// <returns>The site's ECI coordinates at the given time.</returns>
-      public EciTime PositionEci(DateTime utc)
-      {
-         return new EciTime(Geo, new Julian(utc));
-      }
+        /// <summary>
+        /// Calculates the ECI coordinates of the site.
+        /// </summary>
+        /// <param name="date">Time of position calculation.</param>
+        /// <returns>The site's ECI coordinates at the given time.</returns>
+        public EciTime PositionEci(Julian time) => new EciTime(Geo, time);
 
-      /// <summary>
-      /// Returns the topo-centric (azimuth, elevation, etc.) coordinates for
-      /// a target object described by the given ECI coordinates.
-      /// </summary>
-      /// <param name="eci">The ECI coordinates of the target object.</param>
-      /// <returns>The look angle to the target object.</returns>
-      public TopoTime GetLookAngle(EciTime eci)
+        /// <summary>
+        /// Calculates the ECI coordinates of the site.
+        /// </summary>
+        /// <param name="utc">Time of position calculation.</param>
+        /// <returns>The site's ECI coordinates at the given time.</returns>
+        public EciTime PositionEci(DateTime utc) => new EciTime(Geo, new Julian(utc));
+
+        /// <summary>
+        /// Returns the topo-centric (azimuth, elevation, etc.) coordinates for
+        /// a target object described by the given ECI coordinates.
+        /// </summary>
+        /// <param name="eci">The ECI coordinates of the target object.</param>
+        /// <returns>The look angle to the target object.</returns>
+        public TopoTime GetLookAngle(EciTime eci)
       {
          // Calculate the ECI coordinates for this Site object at the time
          // of interest.
@@ -194,13 +185,10 @@ namespace Zeptomoby.OrbitTools
          return topo;
       }
 
-      /// <summary>
-      /// Converts to a string representation of the form "120.00N 090.00W 500m".
-      /// </summary>
-      /// <returns>The formatted string.</returns>
-      public override string ToString()
-      {
-         return Geo.ToString();
-      }
-   }
+        /// <summary>
+        /// Converts to a string representation of the form "120.00N 090.00W 500m".
+        /// </summary>
+        /// <returns>The formatted string.</returns>
+        public override string ToString() => Geo.ToString();
+    }
 }

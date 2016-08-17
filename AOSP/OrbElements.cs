@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace AOSP
         /// Semi-Major Axis [m]
         /// </summary>
         public double SMA { get { return a; } set { a = value; } }
-        
+
         /// <summary>
         /// Eccentricity
         /// </summary>
@@ -53,14 +54,14 @@ namespace AOSP
         /// </summary>
         public double ReferenceMJD { get { return reference; } set { reference = value; } }
 
-        
+
         /// <summary>Constructor for elements in Orbiter.</summary>
         /// <param name="sma">Semi-Major axis in meters.</param>
         /// <param name="ecc">Eccentricity.</param>
         /// <param name="inc">Inclination in degrees.</param>
         /// <param name="asc">Longitude of Ascending node in degrees.</param>
         /// <param name="pelng">Periapsis longitude in degrees.</param>
-        /// <param name="meanlng">Mean longitude at <see cref="refdate">reference date</see>.</param>
+        /// <param name="meanlng">Mean longitude at reference date.</param>
         /// <param name="refdate">Reference date in MJD.</param>
         public OrbElements(double sma, double ecc, double inc, double asc, double pelng, double meanlng, double refdate)
         {
@@ -76,7 +77,8 @@ namespace AOSP
         /// <summary>
         /// Initializes an OrbElements given TLE lines.
         /// </summary>
-        /// <param name="tle">TLE lines. Indices 1 & 2 are used (since 0 is the name of the ship)</param>
+        /// <param name="tle">TLE lines. Indices 1 &amp; 2 are used (since 0 is the name of the ship)</param>
+        [Obsolete("Converting TLE through OrbElements does not make use of SDP4/SGP4 integration. The results will be in ELEMENTS form. Use OrbVessel.ProcessTLE instead.")]
         public OrbElements(string[] tle)
         {
             this = FromTLE(tle[1], tle[2]);
@@ -85,9 +87,9 @@ namespace AOSP
         /// <summary>
         /// Converts a TLE line into Orbiter Elements. Special thanks to Ajaja for the help ;)
         /// </summary>
-        /// <param name="el">OrbElements variable.</param>
         /// <param name="line1">First TLE line.</param>
         /// <param name="line2">Second TLE line.</param>
+        [Obsolete("Converting TLE through OrbElements does not make use of SDP4/SGP4 integration. The results will be in ELEMENTS form.")]
         static public OrbElements FromTLE(string line1, string line2)
         {
             string tle1;
@@ -129,10 +131,7 @@ namespace AOSP
             return x;
         }
 
-        private static double rg(double x)
-        {
-            return x * 0.01745329251994329577;
-        }
+        private static double rg(double x) => x * 0.01745329251994329577;
 
         private static OrbElements tlecalc(double tm, double e, double eq_i, double eq_RAAN, double eq_ap, double eq_ma, double r)
         {
@@ -181,10 +180,7 @@ namespace AOSP
         /// <summary>
         /// Returns the Orbiter formatted string. (SMA, Ecc, Inc, AscNode, PeLong, MeanLong, ReferenceMJD)
         /// </summary>
-        public override string ToString()
-        {
-            return String.Format("{0:0.00000} {1:0.0000000} {2:0.00000} {3:0.00000} {4:0.00000} {5:0.00000} {6:00000.00000}",
-                SMA, Ecc, Inc, AscNode, PeLong, MeanLong, ReferenceMJD);
-        }
+        public override string ToString() => string.Format("{0:0.00000} {1:0.0000000} {2:0.00000} {3:0.00000} {4:0.00000} {5:0.00000} {6:00000.00000}",
+    SMA, Ecc, Inc, AscNode, PeLong, MeanLong, ReferenceMJD);
     }
 }

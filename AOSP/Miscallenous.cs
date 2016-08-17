@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Globalization;
 
 namespace AOSP
@@ -7,11 +8,11 @@ namespace AOSP
     /// Trown when vessel status is incorrect to do the operation.
     /// </summary>
     [Serializable]
-    public class WrongVesselStatusError : System.Exception
+    public class VesselFlightStatusException : System.Exception
     {
-        public WrongVesselStatusError() { }
+        public VesselFlightStatusException() { }
 
-        public WrongVesselStatusError(string message, System.Exception innerException)
+        public VesselFlightStatusException(string message, System.Exception innerException)
             : base(message, innerException)
         {
         }
@@ -41,9 +42,6 @@ namespace AOSP
             return jd - 2400000.5;
         }
 
-        public static DateTime GetTime(double MJD)
-        {
-            return new DateTime(1858, 11, 17).AddDays(MJD);
-        }
+        public static DateTime GetTime(double MJD) => new DateTime(1858, 11, 17).AddDays(MJD);
     }
 }

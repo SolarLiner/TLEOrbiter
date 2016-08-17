@@ -47,18 +47,15 @@ namespace Zeptomoby.OrbitTools
                                            (Globals.Xkmper * Globals.Xkmper * Globals.Xkmper)); // sqrt(ge) ER^3/min^2
       public static double Qoms2t     = Math.Pow((Qo - Globals.S), 4); //(QO - S)^4 ER^4
 
-      #endregion
+        #endregion
 
-      #region Utility
+        #region Utility
 
-      // ///////////////////////////////////////////////////////////////////////////
-      public static double Sqr(double x) 
-      {
-         return (x * x);
-      }
+        // ///////////////////////////////////////////////////////////////////////////
+        public static double Sqr(double x) => (x * x);
 
-      // ///////////////////////////////////////////////////////////////////////////
-      public static double Fmod2p(double arg)
+        // ///////////////////////////////////////////////////////////////////////////
+        public static double Fmod2p(double arg)
       {
          double modu = (arg % TwoPi);
 
@@ -104,20 +101,14 @@ namespace Zeptomoby.OrbitTools
          return ret;
       }
 
-      // ///////////////////////////////////////////////////////////////////////////
-      public static double ToDegrees(double radians)
-      {
-         return radians * DegreesPerRad;
-      }
+        // ///////////////////////////////////////////////////////////////////////////
+        public static double ToDegrees(double radians) => radians * DegreesPerRad;
 
-      // ///////////////////////////////////////////////////////////////////////////
-      public static double ToRadians(double degrees)
-      {
-         return degrees * RadsPerDegree;
-      }	
+        // ///////////////////////////////////////////////////////////////////////////
+        public static double ToRadians(double degrees) => degrees * RadsPerDegree;
 
-      #endregion
-   }
+        #endregion
+    }
 
    #region Exceptions
 
@@ -141,14 +132,14 @@ namespace Zeptomoby.OrbitTools
       /// <summary>
       /// The GMT when the satellite orbit decays.
       /// </summary>
-      public DateTime DecayTime { get; private set; }
+      public DateTime DecayTime { get; }
 
-      /// <summary>
-      /// The name of the satellite whose orbit decayed.
-      /// </summary>
-      public string SatelliteName { get; private set; }
+        /// <summary>
+        /// The name of the satellite whose orbit decayed.
+        /// </summary>
+        public string SatelliteName { get; }
 
-      public DecayException() { }
+        public DecayException() { }
       public DecayException(string message) : base(message) { }
       public DecayException(string message, Exception inner) : base(message, inner) { }
       public DecayException(DateTime decayTime, string satelliteName)

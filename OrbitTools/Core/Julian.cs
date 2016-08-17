@@ -72,27 +72,27 @@ namespace Zeptomoby.OrbitTools
          Initialize(year, doy);
       }
 
-      #endregion
+        #endregion
 
-      #region Properties
+        #region Properties
 
-      public double Date { get { return m_Date; } }
+        public double Date => m_Date;
 
-      public double FromJan0_12h_1900() { return m_Date - EPOCH_JAN0_12H_1900; }
-      public double FromJan1_00h_1900() { return m_Date - EPOCH_JAN1_00H_1900; }
-      public double FromJan1_12h_1900() { return m_Date - EPOCH_JAN1_12H_1900; }
-      public double FromJan1_12h_2000() { return m_Date - EPOCH_JAN1_12H_2000; }
+          public double FromJan0_12h_1900() => m_Date - EPOCH_JAN0_12H_1900;
+          public double FromJan1_00h_1900() => m_Date - EPOCH_JAN1_00H_1900;
+          public double FromJan1_12h_1900() => m_Date - EPOCH_JAN1_12H_1900;
+          public double FromJan1_12h_2000() => m_Date - EPOCH_JAN1_12H_2000;
 
-      #endregion
+        #endregion
 
-      /// <summary>
-      /// Calculates the time difference between two Julian dates.
-      /// </summary>
-      /// <param name="date">Julian date.</param>
-      /// <returns>
-      /// A TimeSpan representing the time difference between the two dates.
-      /// </returns>
-      public TimeSpan Diff(Julian date)
+        /// <summary>
+        /// Calculates the time difference between two Julian dates.
+        /// </summary>
+        /// <param name="date">Julian date.</param>
+        /// <returns>
+        /// A TimeSpan representing the time difference between the two dates.
+        /// </returns>
+        public TimeSpan Diff(Julian date)
       {
          const double TICKS_PER_DAY = 8.64e11; // 1 tick = 100 nanoseconds
          return new TimeSpan((long)((m_Date - date.m_Date) * TICKS_PER_DAY));
@@ -112,13 +112,13 @@ namespace Zeptomoby.OrbitTools
          // Arbitrary years used for error checking
          if (year < 1900 || year > 2100)
          {
-            throw new ArgumentOutOfRangeException("year");
+            throw new ArgumentOutOfRangeException(nameof(year));
          }
 
          // The last day of a leap year is day 366
          if (doy < 1.0 || doy >= 367.0)
          {
-            throw new ArgumentOutOfRangeException("doy");
+            throw new ArgumentOutOfRangeException(nameof(doy));
          }
 
          m_Year = year;
@@ -172,25 +172,22 @@ namespace Zeptomoby.OrbitTools
          return  (Globals.TwoPi * (GMST / Globals.SecPerDay));
       }
 
-      /// <summary>
-      /// Calculate Local Mean Sidereal Time for this Julian date at the given
-      /// longitude.
-      /// </summary>
-      /// <param name="lon">The longitude, in radians, measured west from Greenwich.</param>
-      /// <returns>
-      /// The angle, in radians, measuring eastward from the Vernal Equinox to
-      /// the given longitude.
-      /// </returns>
-      public double ToLmst(double lon)
-      {
-         return (ToGmst() + lon) % Globals.TwoPi;
-      }
+        /// <summary>
+        /// Calculate Local Mean Sidereal Time for this Julian date at the given
+        /// longitude.
+        /// </summary>
+        /// <param name="lon">The longitude, in radians, measured west from Greenwich.</param>
+        /// <returns>
+        /// The angle, in radians, measuring eastward from the Vernal Equinox to
+        /// the given longitude.
+        /// </returns>
+        public double ToLmst(double lon) => (ToGmst() + lon) % Globals.TwoPi;
 
-      /// <summary>
-      /// Returns a UTC DateTime object that corresponds to this Julian date.
-      /// </summary>
-      /// <returns>A DateTime object in UTC.</returns>
-      public DateTime ToTime()
+        /// <summary>
+        /// Returns a UTC DateTime object that corresponds to this Julian date.
+        /// </summary>
+        /// <returns>A DateTime object in UTC.</returns>
+        public DateTime ToTime()
       {
          // Jan 1
          DateTime dt = new DateTime(m_Year, 1, 1);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using System;
 using System.Net;
 using System.Windows.Forms;
 
@@ -22,7 +23,7 @@ namespace TLEOrbiter
             }
             catch(Exception ex)
             {
-                Log.Write(ex);
+                Log.WriteError(ex);
                 EP_Validator.SetError(TB_TleUrl, ex.Message);
                 return;
             }

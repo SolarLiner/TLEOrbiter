@@ -1,11 +1,4 @@
-﻿/*====================================================
- * AOSP Code - SolarLiner
- * 3D Vector class
- *  >>> YOU MAY COPY THIS, BUT NOT CHANGE IT UNTIL 
- *  >>> PUSHING YOUR MODIFICATIONS TO THE AOSP PROJECT
- * (c) 2013 WipEoutFlight Studios
-====================================================*/
-
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
 using System;
 /// <summary>
 /// A class for storing 3-axies variables.
@@ -24,7 +17,7 @@ public struct Vector3: IComparable
         }
         set
         {
-            _x = x;
+            _x = value;
         }
     }
 
@@ -39,7 +32,7 @@ public struct Vector3: IComparable
         }
         set
         {
-            _y = y;
+            _y = value;
         }
     }
 
@@ -54,14 +47,14 @@ public struct Vector3: IComparable
         }
         set
         {
-            _z = z;
+            _z = value;
         }
     }
 
     double _x;
     double _y;
     double _z;
-    
+
     /// <summary>
     /// Initializes a new Vector3 var.
     /// </summary>
@@ -77,109 +70,56 @@ public struct Vector3: IComparable
     }
 
     // Operations section
-    // Addition
-    public static Vector3 operator +(Vector3 a, Vector3 b)
+    // Implicit cast from OrbitTools' Vector
+    public static implicit operator Vector3(Zeptomoby.OrbitTools.Vector a)
     {
-        return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+        if( a == null ) return new Vector3();
+        return new Vector3(a.X, a.Y, a.Z) * 1000; // Convert km -> m
     }
 
-    public static Vector3 operator +(Vector3 a, double b)
-    {
-        return new Vector3(a.x + b, a.y + b, a.z + b);
-    }
-    public static Vector3 operator +(double a, Vector3 b)
-    {
-        return b + a;
-    }
+    // Addition
+    public static Vector3 operator +(Vector3 a, Vector3 b) => new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+
+    public static Vector3 operator +(Vector3 a, double b) => new Vector3(a.x + b, a.y + b, a.z + b);
+    public static Vector3 operator +(double a, Vector3 b) => b + a;
 
     // Subtraction
-    public static Vector3 operator -(Vector3 a, Vector3 b)
-    {
-        return new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
-    }
+    public static Vector3 operator -(Vector3 a, Vector3 b) => new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
 
-    public static Vector3 operator -(Vector3 a, double b)
-    {
-        return new Vector3(a.x - b, a.y - b, a.z - b);
-    }
+    public static Vector3 operator -(Vector3 a, double b) => new Vector3(a.x - b, a.y - b, a.z - b);
 
-    public static Vector3 operator -(double a, Vector3 b)
-    {
-        return new Vector3(a - b.x, a - b.y, a - b.z);
-    }
+    public static Vector3 operator -(double a, Vector3 b) => new Vector3(a - b.x, a - b.y, a - b.z);
 
     // Negation
-    public static Vector3 operator -(Vector3 a)
-    {
-        return new Vector3(-a.x, -a.y, -a.z);
-    }
+    public static Vector3 operator -(Vector3 a) => new Vector3(-a.x, -a.y, -a.z);
 
     // Reinforcement
-    public static Vector3 operator +(Vector3 a)
-    {
-        return new Vector3(+a.x, +a.y, +a.z);
-    }
+    public static Vector3 operator +(Vector3 a) => new Vector3(+a.x, +a.y, +a.z);
 
     // Multiplication (scalar and cross product)
-    public static Vector3 operator *(Vector3 a, Vector3 b)
-    {
-        return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
-    }
+    public static Vector3 operator *(Vector3 a, Vector3 b) => new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
 
-    public static Vector3 operator *(Vector3 a, double b)
-    {
-        return new Vector3(a.x * b, a.y * b, a.z * b);
-    }
+    public static Vector3 operator *(Vector3 a, double b) => new Vector3(a.x * b, a.y * b, a.z * b);
 
-    public static Vector3 operator *(double a, Vector3 b)
-    {
-        return b * a;
-    }
+    public static Vector3 operator *(double a, Vector3 b) => b * a;
 
     // Division (scalar, vector)
-    public static Vector3 operator /(Vector3 a, Vector3 b)
-    {
-        return new Vector3(a.x / b.x, a.y / b.y, a.z / b.z);
-    }
+    public static Vector3 operator /(Vector3 a, Vector3 b) => new Vector3(a.x / b.x, a.y / b.y, a.z / b.z);
 
-    public static Vector3 operator /(Vector3 a, double b)
-    {
-        return new Vector3(a.x / b, a.y / b, a.z / b);
-    }
+    public static Vector3 operator /(Vector3 a, double b) => new Vector3(a.x / b, a.y / b, a.z / b);
 
-    public static Vector3 operator /(double a, Vector3 b)
-    {
-        return new Vector3(a / b.x, a / b.y, a / b.z);
-    }
+    public static Vector3 operator /(double a, Vector3 b) => new Vector3(a / b.x, a / b.y, a / b.z);
 
     // Comparaison
-    public static bool operator ==(Vector3 a, Vector3 b)
-    {
-        return (a.x == b.x && a.y == b.y && a.z == b.z);
-    }
+    public static bool operator ==(Vector3 a, Vector3 b) => (a.x == b.x && a.y == b.y && a.z == b.z);
 
-    public static bool operator !=(Vector3 a, Vector3 b)
-    {
-        return !(a == b);
-    }
+    public static bool operator !=(Vector3 a, Vector3 b) => !(a == b);
 
-    public static bool operator <(Vector3 a, Vector3 b)
-    {
-        return a.length < b.length;
-    }
-    public static bool operator >(Vector3 a, Vector3 b)
-    {
-        return b < a;
-    }
+    public static bool operator <(Vector3 a, Vector3 b) => a.length < b.length;
+    public static bool operator >(Vector3 a, Vector3 b) => b < a;
 
-    public static bool operator <=(Vector3 a, Vector3 b)
-    {
-        return a.length <= b.length;
-    }
-    public static bool operator >=(Vector3 a, Vector3 b)
-    {
-        return b <= a;
-    }
+    public static bool operator <=(Vector3 a, Vector3 b) => a.length <= b.length;
+    public static bool operator >=(Vector3 a, Vector3 b) => b <= a;
 
 
     // Extended functionality
@@ -188,30 +128,18 @@ public struct Vector3: IComparable
     /// Sum of the square of each axis.
     /// </summary>
     /// <returns>The absolute value of the axis.</returns>
-    public double absolute
-    {
-        get { return x * x + y * y + z * z; }
-    }
+    public double absolute => x * x + y * y + z * z;
 
     /// <summary>
     /// Magnetude of the vector.
     /// </summary>
-    public double length
-    {
-        get { return Math.Sqrt(x * x + y * y + z * z); }
-    }
+    public double length => Math.Sqrt(absolute);
 
     /// <summary>
     /// Get the normalized vector.
     /// </summary>
     /// <returns>Return the normalized vector.</returns>
-    public Vector3 normalized
-    {
-        get
-        {
-            return new Vector3(x / length, y / length, z / length);
-        }
-    }
+    public Vector3 normalized => new Vector3(x / length, y / length, z / length);
 
     /// <summary>
     /// Convert the current vector into a normalized (length = 1) vector.
@@ -224,7 +152,7 @@ public struct Vector3: IComparable
     /// <summary>
     /// True if length is 1 (normalized vector).
     /// </summary>
-    public bool IsUnit { get { return length == 1; } }
+    public bool IsUnit => length == 1;
 
     // Static functions, to be used without Vec3 defined
 
@@ -234,21 +162,17 @@ public struct Vector3: IComparable
     /// <param name="parent">Parent vector.</param>
     /// <param name="point2">"Future" child.</param>
     /// <returns>Relative child vector.</returns>
-    public static Vector3 Relative(Vector3 parent, Vector3 point2)
-    {
-        return point2 - parent;
-    }
+    public static Vector3 Relative(Vector3 parent, Vector3 point2) => point2 - parent;
 
     /// <summary>
     /// Converts vector to Global space.
     /// </summary>
     /// <param name="parent">parent vector</param>
     /// <param name="child">child vector</param>
-    /// <returns>Global space vector of the curent one.</returns>
-    public static Vector3 Global(Vector3 parent, Vector3 child)
-    {
-        return parent + child;
-    }
+    /// <returns>Global space vector of the current one.</returns>
+    public static Vector3 Global(Vector3 parent, Vector3 child) => parent + child;
+
+    internal static bool IsZero(Vector3 v) => v.absolute < double.Epsilon;
 
     /// <summary>
     /// Dot product of two vectors
@@ -256,38 +180,26 @@ public struct Vector3: IComparable
     /// <param name="a">first vector.</param>
     /// <param name="b">second vector.</param>
     /// <returns>double value with the dot product.</returns>
-    public static double dot(Vector3 a, Vector3 b)
-    {
-        return a.x * b.x + a.y * b.y + a.z * b.z;
-    }
+    public static double dot(Vector3 a, Vector3 b) => a.x * b.x + a.y * b.y + a.z * b.z;
 
     /// <summary>
     /// Checks for a normalized vector.
     /// </summary>
     /// <param name="a">Vector to be checked.</param>
     /// <returns>True if normalized, else false.</returns>
-    public static bool IsUnitVector(Vector3 a)
-    {
-        return a.length == 1;
-    }
+    public static bool IsUnitVector(Vector3 a) => a.length == 1;
 
     /// <summary>
-    /// Linerarly interpolate two vectors.
+    /// Linearly interpolate two vectors.
     /// </summary>
     /// <param name="a">start point</param>
     /// <param name="b">end point</param>
     /// <param name="control">position between the two vectors, between 0 and 1.</param>
-    /// <returns>The vector between the two given vector, at <see cref="control"/> control point.</returns>
-    public static Vector3 Interpolate(Vector3 a, Vector3 b, float control)
-    {
-        if (control > 1) control = 1;
-        else if (control < 0) control = 0;
-
-        return new Vector3(
-            a.x * (1 - control) + b.x * control,
-            a.y * (1 - control) + b.y * control,
-            a.z * (1 - control) + b.z * control);
-    }
+    /// <returns>The vector between the two given vector, at control point.</returns>
+    public static Vector3 Interpolate(Vector3 a, Vector3 b, float control) => new Vector3(
+        a.x * (1 - control) + b.x * control,
+        a.y * (1 - control) + b.y * control,
+        a.z * (1 - control) + b.z * control);
 
     /// <summary>
     /// Calculates the distance between two points.
@@ -295,13 +207,10 @@ public struct Vector3: IComparable
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <returns>The distance between the points.</returns>
-    public static double Distance(Vector3 a, Vector3 b)
-    {
-        return Math.Sqrt(
-            Math.Pow(a.x - b.x, 2) +
-            Math.Pow(a.y - b.y, 2) +
-            Math.Pow(a.z - b.z, 2));
-    }
+    public static double Distance(Vector3 a, Vector3 b) => Math.Sqrt(
+    Math.Pow(a.x - b.x, 2) +
+    Math.Pow(a.y - b.y, 2) +
+    Math.Pow(a.z - b.z, 2));
 
     /// <summary>
     /// Calculate the angle between two vectors and the origin.
@@ -309,10 +218,7 @@ public struct Vector3: IComparable
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <returns>Angle in radians.</returns>
-    public static double Angle(Vector3 a, Vector3 b)
-    {
-        return Math.Acos(dot(a.normalized, b.normalized));
-    }
+    public static double Angle(Vector3 a, Vector3 b) => Math.Acos(dot(a.normalized, b.normalized));
 
     /// <summary>
     /// Calculates the triple scalar product. Also volume of a parallelepiped geometric shape.
@@ -322,11 +228,7 @@ public struct Vector3: IComparable
     /// <param name="c">vector c</param>
     /// <returns>Returns the scalar triple product</returns>
     [Obsolete("MixedProduct is no longer supported, it will be removed on the next version.")]
-    public static double MixedProduct(Vector3 a, Vector3 b, Vector3 c)
-    {
-        return ScalarProduct(a, b, c);
-        
-    }
+    public static double MixedProduct(Vector3 a, Vector3 b, Vector3 c) => ScalarProduct(a, b, c);
 
     /// <summary>
     /// Calculates the triple scalar product. Also volume of a parallelepiped geometric shape.
@@ -335,10 +237,7 @@ public struct Vector3: IComparable
     /// <param name="b">vector b</param>
     /// <param name="c">vector c</param>
     /// <returns>Returns the scalar triple product</returns>
-    public static double ScalarProduct(Vector3 a, Vector3 b, Vector3 c)
-    {
-        return dot(a * b, c);
-    }
+    public static double ScalarProduct(Vector3 a, Vector3 b, Vector3 c) => dot(a * b, c);
 
     /// <summary>
     /// Elevate a Vector to a power.
@@ -346,34 +245,25 @@ public struct Vector3: IComparable
     /// <param name="a">Vector input</param>
     /// <param name="power">Power to raise the vector with</param>
     /// <returns>Returns the multiplied vector by a specific power</returns>
-    public static Vector3 Pow(Vector3 a, double power)
-    {
-        return new Vector3(
-            Math.Pow(a.x, power),
-            Math.Pow(a.y, power),
-            Math.Pow(a.z, power));
-    }
+    public static Vector3 Pow(Vector3 a, double power) => new Vector3(
+    Math.Pow(a.x, power),
+    Math.Pow(a.y, power),
+    Math.Pow(a.z, power));
 
     /// <summary>
     /// Transforms each axis of the current vector using the given function.
     /// </summary>
     /// <param name="function">Function to transform the vector. Have to output a double.</param>
     /// <returns>Transformed vector.</returns>
-    public Vector3 ForEachAxis(Func<double, double> function)
-    {
-        return new Vector3(function(this.x), function(this.y), function(this.z));
-    }
-    
+    public Vector3 ForEachAxis(Func<double, double> function) => new Vector3(function(this.x), function(this.y), function(this.z));
+
     // Usability funcs,  (Interfaces implementations such as IComparable)
 
     /// <summary>
     /// Orbiter formatted "x y z" string format.
     /// </summary>
     /// <returns>Returns string "Orbiter-ready" formatted "x y z"</returns>
-    public override string ToString()
-    {
-        return String.Format("{0} {1} {2}", x, y, z);
-    }
+    public override string ToString() => string.Format("{0} {1} {2}", x, y, z);
 
     /// <summary>
     /// Returns string with the asked axis
@@ -405,10 +295,7 @@ public struct Vector3: IComparable
     /// Get Hash code (for system use)
     /// </summary>
     /// <returns>Hash code [int].</returns>
-    public override int GetHashCode()
-    {
-        return (int)((x + y + z) % Int32.MaxValue);
-    }
+    public override int GetHashCode() => (int)((x + y + z) % Int32.MaxValue);
 
     /// <summary>
     /// Same as operator ==. True if equal, false if not or not same type.
@@ -433,17 +320,14 @@ public struct Vector3: IComparable
     /// <returns></returns>
     public int CompareTo(object other)
     {
-        if (other is Vector3)
+        if( other is Vector3 )
         {
             Vector3 b = (Vector3)other;
-            if (this < b) return 1;
-            else if (this > b) return -1;
+            if( this < b ) return 1;
+            else if( this > b ) return -1;
             else return 0;
         }
-        else
-        {
-            throw new ArgumentException("Cannot compare Vector and non-Vector: " + other.GetType().ToString(), "other");
-        }
+        throw new ArgumentException("Cannot compare Vector and non-Vector: " + other.GetType(), nameof(other));
     }
 
     // Constants

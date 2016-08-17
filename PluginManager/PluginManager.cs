@@ -1,4 +1,5 @@
-﻿using AOSP;
+﻿// Copyright (c) 2016 SolarLiner - Part of the TLE Orbiter Sceneraio Generator (TLEOSG)
+using AOSP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,6 @@ namespace TLEOrbiter.PluginManager
         INT,
         DOUBLE,
         VECTOR,
-        UMMU,
         PERCENTAGE
     }
 
@@ -51,6 +51,11 @@ namespace TLEOrbiter.PluginManager
         string VesselClassName { get; }
 
         /// <summary>
+        /// If set to true, the "Name" text box will be grayed out, allowing the plugin to enter a name. Useful for Spacecraft3 / Multistage2 crafts.
+        /// </summary>
+        bool PreventUserFromEnteringName { get; }
+
+        /// <summary>
         /// Sends a dictionary of properties for the user to input.
         /// </summary>
         /// <returns></returns>
@@ -66,15 +71,15 @@ namespace TLEOrbiter.PluginManager
         /// <summary>
         /// Raw 2-line TLE data plus name.
         /// </summary>
-        string[] RawTLE { get; set; }
+        string[] RawTLE { get; }
         /// <summary>
         /// Vessel status before being processed by the plugin. Use as starting point.
         /// </summary>
-        OrbVessel Vessel { get; set; }
+        OrbVessel Vessel { get; }
         /// <summary>
         /// Data returned by the user. Same keys from SetOrbVesselInput().
         /// </summary>
-        Dictionary<string, object> InputData { get; set; }
+        Dictionary<string, object> InputData { get; }
     }
 
     /// <summary>
@@ -105,7 +110,7 @@ namespace TLEOrbiter.PluginManager
 
         static IOrbVesselPlugin[] loadedPlugins;
 
-        static void LoadPlugins()
+        internal static void LoadPlugins()
         {
             Type pType = typeof(IOrbVesselPlugin);
             List<IOrbVesselPlugin> newPlugins = new List<IOrbVesselPlugin>();
@@ -121,7 +126,9 @@ namespace TLEOrbiter.PluginManager
                 {
                     if(T.GetInterface(pType.FullName) == null) continue;
 
-                    newPlugins.Add((IOrbVesselPlugin)Activator.CreateInstance(T));
+                    var plugin = (IOrbVesselPlugin)Activator.CreateInstance(T);
+                    newPlugins.Add(plugin);
+                    Log.Write(string.Format("{0}: {{{1}}}: '{2}'", Path.GetFileName(dll), plugin.UID, plugin.Metadata.Name));
                 }
             }
 
@@ -141,7 +148,9 @@ namespace TLEOrbiter.PluginManager
             return dic;
         }
 
-        static Dictionary<Guid, string> GetVesselNames()
+        static IOrbVesselPlugin GetPlugin(Guid ID) => loadedPlugins.First(x => x.UID == ID);
+
+        internal static Dictionary<Guid, string> GetVesselNames()
         {
             var dic = new Dictionary<Guid, string>();
 
@@ -154,16 +163,21 @@ namespace TLEOrbiter.PluginManager
             return dic;
         }
 
-        static IOrbVesselPlugin GetPlugin(Guid ID) => loadedPlugins.First(x => x.UID == ID);
-
-        internal static Dictionary<string, string> PopulateDropdown()
+        internal static Dictionary<string, OrbVesselScenarioDataType> GetUserInputValues(Guid ID)
         {
-            var dic = new Dictionary<string, string>();
+            IOrbVesselPlugin p = GetPlugin(ID);
 
-            foreach(KeyValuePair<Guid, string> kvp in GetVesselNames() )
-                dic.Add(kvp.Key.ToString(), kvp.Value);
+            Log.Write(string.Format("PluginManager.GetUserInputValue(ID: {{{0}}})", ID));
+            return p.SetOrbVesselInput();
+        }
 
-            return dic;
+        internal static OrbVessel ProcessVesselData(IOrbVesselContext context, Guid ID)
+        {
+            IOrbVesselPlugin p = GetPlugin(ID);
+
+            Log.Write(string.Format("PluginManager.ProcessVesselData(ID: {{{0}}})", ID));
+
+            return p.SendOrbVesselData(context);
         }
     }
 }
