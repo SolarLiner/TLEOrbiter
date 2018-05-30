@@ -35,6 +35,8 @@
             this.BT_OK = new System.Windows.Forms.Button();
             this.BT_Cancel = new System.Windows.Forms.Button();
             this.EP_Validator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.BT_BrowseLocalFile = new System.Windows.Forms.Button();
+            this.toolTipBrowseLocalFile = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.EP_Validator)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,12 +69,21 @@
             // 
             this.EP_Validator.ContainerControl = this;
             // 
+            // BT_BrowseLocalFile
+            // 
+            resources.ApplyResources(this.BT_BrowseLocalFile, "BT_BrowseLocalFile");
+            this.BT_BrowseLocalFile.Name = "BT_BrowseLocalFile";
+            this.toolTipBrowseLocalFile.SetToolTip(this.BT_BrowseLocalFile, resources.GetString("BT_BrowseLocalFile.ToolTip"));
+            this.BT_BrowseLocalFile.UseVisualStyleBackColor = true;
+            this.BT_BrowseLocalFile.Click += new System.EventHandler(this.BT_BrowseLocalFile_Click);
+            // 
             // ImportTLE
             // 
             this.AcceptButton = this.BT_OK;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BT_Cancel;
+            this.Controls.Add(this.BT_BrowseLocalFile);
             this.Controls.Add(this.BT_Cancel);
             this.Controls.Add(this.BT_OK);
             this.Controls.Add(this.TB_TleUrl);
@@ -94,5 +105,7 @@
         private System.Windows.Forms.Button BT_OK;
         private System.Windows.Forms.Button BT_Cancel;
         private System.Windows.Forms.ErrorProvider EP_Validator;
+        private System.Windows.Forms.Button BT_BrowseLocalFile;
+        private System.Windows.Forms.ToolTip toolTipBrowseLocalFile;
     }
 }

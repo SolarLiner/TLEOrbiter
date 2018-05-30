@@ -37,5 +37,14 @@ namespace TLEOrbiter
             if (!Uri.IsWellFormedUriString(TB_TleUrl.Text, UriKind.Absolute))
                 EP_Validator.SetError(TB_TleUrl, "Must enter a validate URL");
         }
+
+        private void BT_BrowseLocalFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                TB_TleUrl.Text = new Uri(openFileDialog.FileName).AbsoluteUri;
+            }
+        }
     }
 }

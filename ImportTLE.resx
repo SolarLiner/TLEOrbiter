@@ -145,13 +145,13 @@ import as Orbiter scenario.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="TB_TleUrl.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 59</value>
   </data>
   <data name="TB_TleUrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>464, 20</value>
+    <value>425, 20</value>
   </data>
   <data name="TB_TleUrl.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -169,7 +169,7 @@ import as Orbiter scenario.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TB_TleUrl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="BT_OK.Location" type="System.Drawing.Point, System.Drawing">
     <value>405, 97</value>
@@ -193,7 +193,7 @@ import as Orbiter scenario.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BT_OK.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="BT_Cancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>324, 97</value>
@@ -217,7 +217,7 @@ import as Orbiter scenario.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BT_Cancel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="EP_Validator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -230,6 +230,36 @@ import as Orbiter scenario.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>492, 132</value>
+  </data>
+  <data name="BT_BrowseLocalFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>447, 56</value>
+  </data>
+  <data name="BT_BrowseLocalFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 23</value>
+  </data>
+  <data name="BT_BrowseLocalFile.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="BT_BrowseLocalFile.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <metadata name="toolTipBrowseLocalFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>136, 17</value>
+  </metadata>
+  <data name="BT_BrowseLocalFile.ToolTip" xml:space="preserve">
+    <value>Click to browse for a local file</value>
+  </data>
+  <data name="&gt;&gt;BT_BrowseLocalFile.Name" xml:space="preserve">
+    <value>BT_BrowseLocalFile</value>
+  </data>
+  <data name="&gt;&gt;BT_BrowseLocalFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BT_BrowseLocalFile.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BT_BrowseLocalFile.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5033,6 +5063,12 @@ import as Orbiter scenario.</value>
   </data>
   <data name="&gt;&gt;EP_Validator.Type" xml:space="preserve">
     <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTipBrowseLocalFile.Name" xml:space="preserve">
+    <value>toolTipBrowseLocalFile</value>
+  </data>
+  <data name="&gt;&gt;toolTipBrowseLocalFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ImportTLE</value>
